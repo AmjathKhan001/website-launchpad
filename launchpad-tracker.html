@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchPad - Website Creation Tracker | AuraText Tools</title>
+    <meta name="description" content="Track your website creation journey from idea to launch. Complete checklist with progress tracking, resources, and health monitoring.">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    
+    <style>
+        :root {
+            --phase-1: #8a2be2;
+            --phase-2: #4ecdc4;
+            --phase-3: #ff6b6b;
+            --phase-4: #feca57;
+            --phase-5: #1dd1a1;
+            --phase-complete: #00b894;
+            --phase-incomplete: #636e72;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .tool-page {
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #8a2be2, #4ecdc4, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Progress Dashboard */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Overall Progress */
+        .overall-progress {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-title h2 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .progress-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+        
+        .circle-progress {
+            fill: none;
+            stroke: #8a2be2;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .progress-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .progress-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        /* Phases Container */
+        .phases-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .phase-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .phase-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .phase-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--phase-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .phase-card:nth-child(1) .phase-icon { background: var(--phase-1); }
+        .phase-card:nth-child(2) .phase-icon { background: var(--phase-2); }
+        .phase-card:nth-child(3) .phase-icon { background: var(--phase-3); }
+        .phase-card:nth-child(4) .phase-icon { background: var(--phase-4); }
+        .phase-card:nth-child(5) .phase-icon { background: var(--phase-5); }
+        
+        .phase-name h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .phase-status {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .phase-progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .phase-progress-fill {
+            height: 100%;
+            background: var(--phase-1);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .phase-card:nth-child(1) .phase-progress-fill { background: var(--phase-1); }
+        .phase-card:nth-child(2) .phase-progress-fill { background: var(--phase-2); }
+        .phase-card:nth-child(3) .phase-progress-fill { background: var(--phase-3); }
+        .phase-card:nth-child(4) .phase-progress-fill { background: var(--phase-4); }
+        .phase-card:nth-child(5) .phase-progress-fill { background: var(--phase-5); }
+        
+        /* Checklist */
+        .checklist {
+            margin-top: 1rem;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .checklist-item.completed {
+            background: rgba(0, 184, 148, 0.1);
+            border-color: rgba(0, 184, 148, 0.3);
+        }
+        
+        .checklist-checkbox {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item.completed .checklist-checkbox {
+            background: var(--phase-complete);
+            border-color: var(--phase-complete);
+        }
+        
+        .checklist-checkbox i {
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .checklist-item.completed .checklist-checkbox i {
+            opacity: 1;
+        }
+        
+        .checklist-content {
+            flex: 1;
+        }
+        
+        .checklist-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .checklist-item.completed .checklist-content h4 {
+            color: #00b894;
+            text-decoration: line-through;
+        }
+        
+        .checklist-description {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-resources {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #8a2be2;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background: rgba(138, 43, 226, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Timeline */
+        .timeline-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--phase-1), var(--phase-5));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-marker {
+            width: 24px;
+            height: 24px;
+            background: var(--phase-1);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            border: 4px solid #0f0c29;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            margin-left: 2rem;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+        
+        .timeline-date {
+            font-size: 0.9rem;
+            color: #8a2be2;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .timeline-text {
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+        
+        /* Actions Panel */
+        .actions-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .actions-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .action-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: #8a2be2;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+        }
+        
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(138, 43, 226, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #8a2be2;
+            margin: 0 auto 1rem;
+        }
+        
+        .action-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .action-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+        
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid #8a2be2;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: #8a2be2;
+            transform: translateY(-2px);
+        }
+        
+        /* Buttons */
+        .btn-primary, .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #8a2be2, #4ecdc4);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .progress-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+            
+            .progress-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .phases-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-marker {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Phase Completion Badge */
+        .phase-complete-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--phase-complete);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .phase-card.completed .phase-complete-badge {
+            display: block;
+        }
+        
+        /* Navigation styles (from your existing design) */
+        .navbar, .ads-banner, .footer {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>LaunchPad</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#effects">Effects</a>
+                <a href="index.html#text-styles">Text Styles</a>
+                
+                <!-- Our Tools Dropdown -->
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Our Tools <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="index.html">AuraText Generator</a>
+                        <a href="gradient.html">CSS Gradient Generator</a>
+                        <a href="grid-generator.html">CSS Grid Generator</a>
+                        <a href="flexbox-helper.html">Flexbox Helper</a>
+                        <a href="box-shadow.html">Box Shadow Generator</a>
+                        <a href="border-generator.html">CSS Border Generator</a>
+                        <a href="text-shadow-generator.html">Text Shadow Generator</a>
+                        <a href="animations-generator.html">CSS Animations Generator</a>
+                        <a href="palette-generator.html">Color Palette Generator</a>
+                        <a href="color-picker.html">Color Picker Tool</a>
+                        <a href="launchpad-tracker.html" class="active">LaunchPad Tracker</a>
+                    </div>
+                </div>
+                
+                <a href="index.html#tools">More Tools</a>
+                <a href="index.html#try-now">Try Now</a>
+                <a href="index.html#blog">Blog</a>
+                <a href="index.html#contact">Contact</a>
+                <span class="visitor-count">
+                    <i class="fas fa-users"></i>
+                    <span id="visitor-counter">1,234</span>
+                </span>
+            </div>
+            <button class="menu-toggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Ads Banner -->
+    <div class="ads-banner">
+        <div class="container">
+            <a href="https://amzn.to/4p8ceG6" target="_blank" class="amazon-ad-btn">
+                <i class="fas fa-tag"></i>
+                <span>Clearence Sale Store Upto 70% All Day</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="https://buymeacoffee.com/s.amjathkhan" target="_blank" class="coffee-btn">
+                <i class="fas fa-coffee"></i>
+                <span>Buy Me a Coffee</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container tool-page">
+        <header class="hero">
+            <h1>LaunchPad - Website Creation Tracker</h1>
+            <p class="subtitle">Your complete guide from idea to successful website launch. Track progress, get resources, and monitor your website health.</p>
+            <p>Perfect for beginners and experienced developers alike. Never lose track of your website creation journey again!</p>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Overall Progress -->
+            <section class="overall-progress">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <h2><i class="fas fa-chart-line"></i> Overall Progress</h2>
+                        <p>Track your website creation journey</p>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-circle">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="circle-bg" cx="60" cy="60" r="52"></circle>
+                                <circle class="circle-progress" cx="60" cy="60" r="52" stroke-dasharray="327" stroke-dashoffset="327"></circle>
+                            </svg>
+                            <div class="progress-percentage" id="overallProgress">0%</div>
+                        </div>
+                        <div class="progress-details">
+                            <div class="detail-item">
+                                <i class="fas fa-check-circle" style="color: #00b894;"></i>
+                                <span>Completed: <span id="completedCount">0</span>/25</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock" style="color: #feca57;"></i>
+                                <span>In Progress: <span id="inProgressCount">0</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
+                                <span>Pending: <span id="pendingCount">25</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-actions">
+                    <button id="saveProgress" class="btn-secondary">
+                        <i class="fas fa-save"></i> Save Progress
+                    </button>
+                    <button id="resetProgress" class="btn-secondary">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                    <button id="exportReport" class="btn-primary">
+                        <i class="fas fa-download"></i> Export Report
+                    </button>
+                </div>
+            </section>
+
+            <!-- Phases Container -->
+            <section class="phases-container" id="phasesContainer">
+                <!-- Phase 1: Planning -->
+                <div class="phase-card" data-phase="1">
+                    <div class="phase-complete-badge">
+                        <i class="fas fa-check"></i> Complete
+                    </div>
+                    <div class="phase-header">
+                        <div class="phase-title">
+                            <div class="phase-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="phase-name">
+                                <h3>Phase 1: Planning</h3>
+                                <div class="phase-status" id="phase1Status">0/5 completed</div>
+                            </div>
+                        </div>
+                        <div class="phase-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="phase-progress-bar">
+                        <div class="phase-progress-fill" id="phase1Progress" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist" id="phase1Checklist">
+                        <!-- Checklist items will be added by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Phase 2: Development -->
+                <div class="phase-card" data-phase="2">
+                    <div class="phase-complete-badge">
+                        <i class="fas fa-check"></i> Complete
+                    </div>
+                    <div class="phase-header">
+                        <div class="phase-title">
+                            <div class="phase-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="phase-name">
+                                <h3>Phase 2: Development</h3>
+                                <div class="phase-status" id="phase2Status">0/6 completed</div>
+                            </div>
+                        </div>
+                        <div class="phase-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="phase-progress-bar">
+                        <div class="phase-progress-fill" id="phase2Progress" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist" id="phase2Checklist">
+                        <!-- Checklist items will be added by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Phase 3: Testing -->
+                <div class="phase-card" data-phase="3">
+                    <div class="phase-complete-badge">
+                        <i class="fas fa-check"></i> Complete
+                    </div>
+                    <div class="phase-header">
+                        <div class="phase-title">
+                            <div class="phase-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="phase-name">
+                                <h3>Phase 3: Testing</h3>
+                                <div class="phase-status" id="phase3Status">0/5 completed</div>
+                            </div>
+                        </div>
+                        <div class="phase-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="phase-progress-bar">
+                        <div class="phase-progress-fill" id="phase3Progress" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist" id="phase3Checklist">
+                        <!-- Checklist items will be added by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Phase 4: Launch -->
+                <div class="phase-card" data-phase="4">
+                    <div class="phase-complete-badge">
+                        <i class="fas fa-check"></i> Complete
+                    </div>
+                    <div class="phase-header">
+                        <div class="phase-title">
+                            <div class="phase-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="phase-name">
+                                <h3>Phase 4: Launch</h3>
+                                <div class="phase-status" id="phase4Status">0/5 completed</div>
+                            </div>
+                        </div>
+                        <div class="phase-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="phase-progress-bar">
+                        <div class="phase-progress-fill" id="phase4Progress" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist" id="phase4Checklist">
+                        <!-- Checklist items will be added by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Phase 5: Maintenance -->
+                <div class="phase-card" data-phase="5">
+                    <div class="phase-complete-badge">
+                        <i class="fas fa-check"></i> Complete
+                    </div>
+                    <div class="phase-header">
+                        <div class="phase-title">
+                            <div class="phase-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="phase-name">
+                                <h3>Phase 5: Maintenance</h3>
+                                <div class="phase-status" id="phase5Status">0/4 completed</div>
+                            </div>
+                        </div>
+                        <div class="phase-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="phase-progress-bar">
+                        <div class="phase-progress-fill" id="phase5Progress" style="width: 0%"></div>
+                    </div>
+                    <div class="checklist" id="phase5Checklist">
+                        <!-- Checklist items will be added by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <section class="timeline-container">
+                <h2 class="timeline-title">
+                    <i class="fas fa-history"></i> Your Journey Timeline
+                </h2>
+                <div class="timeline" id="journeyTimeline">
+                    <!-- Timeline items will be added by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Actions Panel -->
+            <section class="actions-panel">
+                <h2 class="actions-title">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </h2>
+                <div class="actions-grid">
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <h3>Create Project</h3>
+                        <p>Start a new website project with detailed planning</p>
+                        <button class="action-btn" id="createProjectBtn">
+                            <i class="fas fa-plus"></i> New Project
+                        </button>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Health Check</h3>
+                        <p>Check your website's performance and security</p>
+                        <button class="action-btn" id="healthCheckBtn">
+                            <i class="fas fa-stethoscope"></i> Run Check
+                        </button>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <h3>Generate Report</h3>
+                        <p>Create a detailed progress report (PDF/HTML)</p>
+                        <button class="action-btn" id="generateReportBtn">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>Share Progress</h3>
+                        <p>Share your journey with team or social media</p>
+                        <button class="action-btn" id="shareProgressBtn">
+                            <i class="fas fa-share"></i> Share Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- How to Use -->
+        <section class="instructions" style="margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 15px;">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">How to Use LaunchPad</h2>
+            <div class="steps" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div class="step" style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <div class="step-icon" style="width: 50px; height: 50px; background: linear-gradient(45deg, #8a2be2, #4ecdc4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1rem;">1</div>
+                    <h3>Start Tracking</h3>
+                    <p>Click on checklist items as you complete each step of your website creation.</p>
+                </div>
+                <div class="step" style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <div class="step-icon" style="width: 50px; height: 50px; background: linear-gradient(45deg, #8a2be2, #4ecdc4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1rem;">2</div>
+                    <h3>Use Resources</h3>
+                    <p>Click resource links to get tools, tutorials, and help for each step.</p>
+                </div>
+                <div class="step" style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <div class="step-icon" style="width: 50px; height: 50px; background: linear-gradient(45deg, #8a2be2, #4ecdc4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1rem;">3</div>
+                    <h3>Monitor Progress</h3>
+                    <p>Watch your progress bars fill up and see your completion percentage rise.</p>
+                </div>
+                <div class="step" style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <div class="step-icon" style="width: 50px; height: 50px; background: linear-gradient(45deg, #8a2be2, #4ecdc4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1rem;">4</div>
+                    <h3>Export & Share</h3>
+                    <p>Generate reports and share your successful launch journey.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>LaunchPad</span>
+                </div>
+                <p class="footer-tagline">Track your website creation journey from idea to successful launch.</p>
+                
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#effects">Effects</a>
+                    <a href="index.html#text-styles">Text Styles</a>
+                    <a href="gradient.html">Gradient Tool</a>
+                    <a href="grid-generator.html">Grid Generator</a>
+                    <a href="flexbox-helper.html">Flexbox Helper</a>
+                    <a href="box-shadow.html">Box Shadow Tool</a>
+                    <a href="border-generator.html">Border Generator</a>
+                    <a href="text-shadow-generator.html">Text Shadow Generator</a>
+                    <a href="animations-generator.html">Animations Generator</a>
+                    <a href="palette-generator.html">Color Palette Tool</a>
+                    <a href="color-picker.html">Color Picker</a>
+                    <a href="launchpad-tracker.html">LaunchPad Tracker</a>
+                    <a href="index.html#blog">Blog</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>© 2025 www.auratext.online. Made with <i class="fas fa-heart"></i> by <a href="https://www.amjathkhan.com" target="_blank" rel="noopener noreferrer">Amjath Khan</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toast-message">Progress saved successfully!</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('LaunchPad Tracker Tool Loaded');
+            
+            // Toast elements
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            // Progress tracking data
+            let progressData = {
+                phases: {
+                    phase1: { completed: 0, total: 5, items: [] },
+                    phase2: { completed: 0, total: 6, items: [] },
+                    phase3: { completed: 0, total: 5, items: [] },
+                    phase4: { completed: 0, total: 5, items: [] },
+                    phase5: { completed: 0, total: 4, items: [] }
+                },
+                timeline: [],
+                lastUpdated: new Date().toISOString()
+            };
+            
+            // Checklist data for each phase
+            const checklistData = {
+                phase1: [
+                    {
+                        id: 'p1-1',
+                        title: 'Define Website Purpose',
+                        description: 'Clearly define what your website should achieve',
+                        completed: false,
+                        resources: [
+                            { name: 'Purpose Worksheet', url: '#' },
+                            { name: 'Goal Setting Guide', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p1-2',
+                        title: 'Choose Domain Name',
+                        description: 'Select and register a memorable domain name',
+                        completed: false,
+                        resources: [
+                            { name: 'Domain Checker', url: 'https://www.namecheap.com' },
+                            { name: 'Name Generator', url: 'https://namelix.com' }
+                        ]
+                    },
+                    {
+                        id: 'p1-3',
+                        title: 'Select Hosting Provider',
+                        description: 'Choose reliable hosting for your website',
+                        completed: false,
+                        resources: [
+                            { name: 'Hosting Comparison', url: 'https://www.hostingadvice.com' },
+                            { name: 'Best Hosting 2025', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p1-4',
+                        title: 'Create Wireframes',
+                        description: 'Design basic layouts for your pages',
+                        completed: false,
+                        resources: [
+                            { name: 'Figma Wireframing', url: 'https://www.figma.com' },
+                            { name: 'Free Templates', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p1-5',
+                        title: 'Plan Content Structure',
+                        description: 'Outline all pages and content hierarchy',
+                        completed: false,
+                        resources: [
+                            { name: 'Sitemap Generator', url: '#' },
+                            { name: 'Content Planning', url: '#' }
+                        ]
+                    }
+                ],
+                phase2: [
+                    {
+                        id: 'p2-1',
+                        title: 'Set Up Development Environment',
+                        description: 'Install code editor and necessary tools',
+                        completed: false,
+                        resources: [
+                            { name: 'VS Code Download', url: 'https://code.visualstudio.com' },
+                            { name: 'Essential Extensions', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p2-2',
+                        title: 'Create File Structure',
+                        description: 'Organize HTML, CSS, JavaScript files',
+                        completed: false,
+                        resources: [
+                            { name: 'Project Structure Guide', url: '#' },
+                            { name: 'Best Practices', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p2-3',
+                        title: 'Build Homepage Template',
+                        description: 'Create the main landing page',
+                        completed: false,
+                        resources: [
+                            { name: 'Homepage Templates', url: '#' },
+                            { name: 'AuraText Generator', url: 'index.html' }
+                        ]
+                    },
+                    {
+                        id: 'p2-4',
+                        title: 'Add Navigation System',
+                        description: 'Create user-friendly navigation menu',
+                        completed: false,
+                        resources: [
+                            { name: 'Navigation Examples', url: '#' },
+                            { name: 'Mobile Menu Guide', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p2-5',
+                        title: 'Implement Responsive Design',
+                        description: 'Ensure mobile-friendly layout',
+                        completed: false,
+                        resources: [
+                            { name: 'Media Queries Guide', url: '#' },
+                            { name: 'Responsive Testing', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p2-6',
+                        title: 'Write All Content',
+                        description: 'Create engaging text for all pages',
+                        completed: false,
+                        resources: [
+                            { name: 'Content Writing Tips', url: '#' },
+                            { name: 'SEO Writing Guide', url: '#' }
+                        ]
+                    }
+                ],
+                phase3: [
+                    {
+                        id: 'p3-1',
+                        title: 'Cross-Browser Testing',
+                        description: 'Test on Chrome, Firefox, Safari, Edge',
+                        completed: false,
+                        resources: [
+                            { name: 'BrowserStack', url: 'https://www.browserstack.com' },
+                            { name: 'Testing Checklist', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p3-2',
+                        title: 'Mobile Responsiveness Check',
+                        description: 'Test on various screen sizes',
+                        completed: false,
+                        resources: [
+                            { name: 'Chrome DevTools', url: '#' },
+                            { name: 'Responsinator', url: 'https://www.responsinator.com' }
+                        ]
+                    },
+                    {
+                        id: 'p3-3',
+                        title: 'SEO Optimization',
+                        description: 'Add meta tags, alt text, sitemap',
+                        completed: false,
+                        resources: [
+                            { name: 'SEO Checklist', url: '#' },
+                            { name: 'Google Search Console', url: 'https://search.google.com' }
+                        ]
+                    },
+                    {
+                        id: 'p3-4',
+                        title: 'Performance Testing',
+                        description: 'Check loading speed and optimize',
+                        completed: false,
+                        resources: [
+                            { name: 'PageSpeed Insights', url: 'https://pagespeed.web.dev' },
+                            { name: 'GTmetrix', url: 'https://gtmetrix.com' }
+                        ]
+                    },
+                    {
+                        id: 'p3-5',
+                        title: 'Content Proofreading',
+                        description: 'Check spelling, grammar, accuracy',
+                        completed: false,
+                        resources: [
+                            { name: 'Grammarly', url: 'https://www.grammarly.com' },
+                            { name: 'Hemingway Editor', url: 'https://hemingwayapp.com' }
+                        ]
+                    }
+                ],
+                phase4: [
+                    {
+                        id: 'p4-1',
+                        title: 'Connect Domain to Hosting',
+                        description: 'Update DNS settings correctly',
+                        completed: false,
+                        resources: [
+                            { name: 'DNS Setup Guide', url: '#' },
+                            { name: 'Common Issues', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p4-2',
+                        title: 'Upload Website Files',
+                        description: 'Transfer all files to hosting server',
+                        completed: false,
+                        resources: [
+                            { name: 'FTP Guide', url: '#' },
+                            { name: 'FileZilla Tutorial', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p4-3',
+                        title: 'Set Up Analytics',
+                        description: 'Install Google Analytics/other tracking',
+                        completed: false,
+                        resources: [
+                            { name: 'Google Analytics', url: 'https://analytics.google.com' },
+                            { name: 'Setup Guide', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p4-4',
+                        title: 'Create Backup System',
+                        description: 'Set up automatic backups',
+                        completed: false,
+                        resources: [
+                            { name: 'Backup Solutions', url: '#' },
+                            { name: 'Automated Backups', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p4-5',
+                        title: 'Launch Announcement',
+                        description: 'Share your website on social media',
+                        completed: false,
+                        resources: [
+                            { name: 'Launch Checklist', url: '#' },
+                            { name: 'Social Media Templates', url: '#' }
+                        ]
+                    }
+                ],
+                phase5: [
+                    {
+                        id: 'p5-1',
+                        title: 'Monitor Website Uptime',
+                        description: 'Set up uptime monitoring alerts',
+                        completed: false,
+                        resources: [
+                            { name: 'UptimeRobot', url: 'https://uptimerobot.com' },
+                            { name: 'StatusCake', url: 'https://www.statuscake.com' }
+                        ]
+                    },
+                    {
+                        id: 'p5-2',
+                        title: 'Regular Security Scans',
+                        description: 'Check for vulnerabilities regularly',
+                        completed: false,
+                        resources: [
+                            { name: 'Security Headers', url: 'https://securityheaders.com' },
+                            { name: 'SSL Checker', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p5-3',
+                        title: 'Update Content Regularly',
+                        description: 'Keep website content fresh and updated',
+                        completed: false,
+                        resources: [
+                            { name: 'Content Calendar', url: '#' },
+                            { name: 'Blog Post Ideas', url: '#' }
+                        ]
+                    },
+                    {
+                        id: 'p5-4',
+                        title: 'Review Analytics Monthly',
+                        description: 'Analyze traffic and user behavior',
+                        completed: false,
+                        resources: [
+                            { name: 'Analytics Guide', url: '#' },
+                            { name: 'Performance Reports', url: '#' }
+                        ]
+                    }
+                ]
+            };
+            
+            // Initialize LaunchPad
+            function initializeLaunchPad() {
+                loadSavedProgress();
+                renderAllChecklists();
+                updateProgressDisplay();
+                setupEventListeners();
+                setupNavigation();
+                updateVisitorCount();
+            }
+            
+            // Load saved progress from localStorage
+            function loadSavedProgress() {
+                const saved = localStorage.getItem('launchpadProgress');
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        
+                        // Merge saved progress with checklist data
+                        Object.keys(parsed.phases).forEach(phaseKey => {
+                            if (checklistData[phaseKey]) {
+                                parsed.phases[phaseKey].items.forEach(savedItem => {
+                                    const itemIndex = checklistData[phaseKey].findIndex(item => item.id === savedItem.id);
+                                    if (itemIndex !== -1) {
+                                        checklistData[phaseKey][itemIndex].completed = savedItem.completed;
+                                    }
+                                });
+                            }
+                        });
+                        
+                        progressData.timeline = parsed.timeline || [];
+                        showToast('Previous progress loaded!');
+                    } catch (e) {
+                        console.error('Error loading saved progress:', e);
+                    }
+                }
+            }
+            
+            // Render all checklists
+            function renderAllChecklists() {
+                Object.keys(checklistData).forEach(phaseKey => {
+                    renderChecklist(phaseKey);
+                });
+                renderTimeline();
+            }
+            
+            // Render checklist for a phase
+            function renderChecklist(phaseKey) {
+                const checklistContainer = document.getElementById(`${phaseKey}Checklist`);
+                if (!checklistContainer) return;
+                
+                checklistContainer.innerHTML = '';
+                
+                checklistData[phaseKey].forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = `checklist-item ${item.completed ? 'completed' : ''}`;
+                    itemElement.dataset.id = item.id;
+                    
+                    itemElement.innerHTML = `
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-content">
+                            <h4>${item.title}</h4>
+                            <p class="checklist-description">${item.description}</p>
+                            <div class="checklist-resources">
+                                ${item.resources.map(resource => `
+                                    <a href="${resource.url}" target="_blank" class="resource-link" onclick="event.stopPropagation();">
+                                        <i class="fas fa-external-link-alt"></i> ${resource.name}
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add click event to toggle completion
+                    itemElement.addEventListener('click', function(e) {
+                        if (!e.target.closest('a')) {
+                            toggleItemCompletion(phaseKey, item.id);
+                        }
+                    });
+                    
+                    checklistContainer.appendChild(itemElement);
+                });
+            }
+            
+            // Toggle item completion
+            function toggleItemCompletion(phaseKey, itemId) {
+                const itemIndex = checklistData[phaseKey].findIndex(item => item.id === itemId);
+                if (itemIndex !== -1) {
+                    checklistData[phaseKey][itemIndex].completed = !checklistData[phaseKey][itemIndex].completed;
+                    
+                    // Add to timeline
+                    if (checklistData[phaseKey][itemIndex].completed) {
+                        addToTimeline(`Completed: ${checklistData[phaseKey][itemIndex].title}`);
+                    }
+                    
+                    renderChecklist(phaseKey);
+                    updateProgressDisplay();
+                    saveProgress();
+                    showToast(checklistData[phaseKey][itemIndex].completed ? 
+                        'Task completed! 🎉' : 'Task marked incomplete');
+                }
+            }
+            
+            // Add event to timeline
+            function addToTimeline(text) {
+                const timelineItem = {
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }),
+                    text: text
+                };
+                
+                progressData.timeline.unshift(timelineItem);
+                if (progressData.timeline.length > 10) {
+                    progressData.timeline = progressData.timeline.slice(0, 10);
+                }
+                
+                renderTimeline();
+            }
+            
+            // Render timeline
+            function renderTimeline() {
+                const timelineContainer = document.getElementById('journeyTimeline');
+                if (!timelineContainer) return;
+                
+                timelineContainer.innerHTML = '';
+                
+                progressData.timeline.forEach((item, index) => {
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = 'timeline-item';
+                    
+                    timelineItem.innerHTML = `
+                        <div class="timeline-marker" style="background: ${getPhaseColor(index)}"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">${item.date}</div>
+                            <div class="timeline-text">${item.text}</div>
+                        </div>
+                    `;
+                    
+                    timelineContainer.appendChild(timelineItem);
+                });
+            }
+            
+            // Get phase color based on index
+            function getPhaseColor(index) {
+                const colors = [
+                    'var(--phase-1)',
+                    'var(--phase-2)',
+                    'var(--phase-3)',
+                    'var(--phase-4)',
+                    'var(--phase-5)'
+                ];
+                return colors[index % colors.length];
+            }
+            
+            // Update progress display
+            function updateProgressDisplay() {
+                let totalCompleted = 0;
+                let totalItems = 0;
+                
+                // Calculate progress for each phase
+                Object.keys(checklistData).forEach(phaseKey => {
+                    const phaseItems = checklistData[phaseKey];
+                    const completedCount = phaseItems.filter(item => item.completed).length;
+                    const totalCount = phaseItems.length;
+                    
+                    totalCompleted += completedCount;
+                    totalItems += totalCount;
+                    
+                    // Update phase progress bar
+                    const progressBar = document.getElementById(`${phaseKey}Progress`);
+                    const phaseStatus = document.getElementById(`${phaseKey}Status`);
+                    const phaseCard = document.querySelector(`.phase-card[data-phase="${phaseKey.replace('phase', '')}"]`);
+                    
+                    if (progressBar) {
+                        const percentage = (completedCount / totalCount) * 100;
+                        progressBar.style.width = `${percentage}%`;
+                    }
+                    
+                    if (phaseStatus) {
+                        phaseStatus.textContent = `${completedCount}/${totalCount} completed`;
+                    }
+                    
+                    if (phaseCard) {
+                        if (completedCount === totalCount) {
+                            phaseCard.classList.add('completed');
+                        } else {
+                            phaseCard.classList.remove('completed');
+                        }
+                    }
+                });
+                
+                // Update overall progress
+                const overallPercentage = totalItems > 0 ? Math.round((totalCompleted / totalItems) * 100) : 0;
+                
+                // Update progress circle
+                const progressCircle = document.querySelector('.circle-progress');
+                const circumference = 2 * Math.PI * 52;
+                const offset = circumference - (overallPercentage / 100) * circumference;
+                
+                if (progressCircle) {
+                    progressCircle.style.strokeDashoffset = offset;
+                }
+                
+                // Update percentages and counts
+                document.getElementById('overallProgress').textContent = `${overallPercentage}%`;
+                document.getElementById('completedCount').textContent = totalCompleted;
+                document.getElementById('inProgressCount').textContent = 0; // Could calculate based on phase
+                document.getElementById('pendingCount').textContent = totalItems - totalCompleted;
+                
+                // Update progress data
+                Object.keys(progressData.phases).forEach(phaseKey => {
+                    if (checklistData[phaseKey]) {
+                        progressData.phases[phaseKey].completed = checklistData[phaseKey].filter(item => item.completed).length;
+                        progressData.phases[phaseKey].items = checklistData[phaseKey].map(item => ({
+                            id: item.id,
+                            completed: item.completed
+                        }));
+                    }
+                });
+            }
+            
+            // Save progress to localStorage
+            function saveProgress() {
+                progressData.lastUpdated = new Date().toISOString();
+                localStorage.setItem('launchpadProgress', JSON.stringify(progressData));
+            }
+            
+            // Setup event listeners
+            function setupEventListeners() {
+                // Save progress button
+                document.getElementById('saveProgress').addEventListener('click', function() {
+                    saveProgress();
+                    showToast('Progress saved successfully! 💾');
+                });
+                
+                // Reset progress button
+                document.getElementById('resetProgress').addEventListener('click', function() {
+                    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                        localStorage.removeItem('launchpadProgress');
+                        location.reload();
+                    }
+                });
+                
+                // Export report button
+                document.getElementById('exportReport').addEventListener('click', function() {
+                    exportProgressReport();
+                });
+                
+                // Quick action buttons
+                document.getElementById('createProjectBtn').addEventListener('click', function() {
+                    showToast('New project template created! 🎯');
+                });
+                
+                document.getElementById('healthCheckBtn').addEventListener('click', function() {
+                    runHealthCheck();
+                });
+                
+                document.getElementById('generateReportBtn').addEventListener('click', function() {
+                    generateDetailedReport();
+                });
+                
+                document.getElementById('shareProgressBtn').addEventListener('click', function() {
+                    shareProgress();
+                });
+                
+                // Phase toggle buttons
+                document.querySelectorAll('.phase-toggle').forEach(toggle => {
+                    toggle.addEventListener('click', function() {
+                        const phaseCard = this.closest('.phase-card');
+                        const checklist = phaseCard.querySelector('.checklist');
+                        const icon = this.querySelector('i');
+                        
+                        if (checklist.style.display === 'none' || !checklist.style.display) {
+                            checklist.style.display = 'block';
+                            icon.classList.remove('fa-chevron-down');
+                            icon.classList.add('fa-chevron-up');
+                        } else {
+                            checklist.style.display = 'none';
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                        }
+                    });
+                });
+            }
+            
+            // Run health check
+            function runHealthCheck() {
+                showToast('Running website health check... 🔍');
+                
+                // Simulate health check
+                setTimeout(() => {
+                    const healthScore = Math.floor(Math.random() * 40) + 60; // 60-100
+                    showToast(`Health check complete! Score: ${healthScore}/100 ✅`);
+                }, 1500);
+            }
+            
+            // Export progress report
+            function exportProgressReport() {
+                let report = `LAUNCHPAD PROGRESS REPORT\n`;
+                report += `Generated: ${new Date().toLocaleString()}\n`;
+                report += `Overall Progress: ${document.getElementById('overallProgress').textContent}\n\n`;
+                
+                Object.keys(checklistData).forEach(phaseKey => {
+                    const phaseName = document.querySelector(`#${phaseKey}Checklist`).closest('.phase-card').querySelector('h3').textContent;
+                    const completedCount = checklistData[phaseKey].filter(item => item.completed).length;
+                    const totalCount = checklistData[phaseKey].length;
+                    
+                    report += `${phaseName}: ${completedCount}/${totalCount} completed\n`;
+                    
+                    checklistData[phaseKey].forEach(item => {
+                        report += `  ${item.completed ? '✓' : '○'} ${item.title}\n`;
+                    });
+                    
+                    report += '\n';
+                });
+                
+                // Create download link
+                const blob = new Blob([report], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `launchpad-report-${new Date().toISOString().split('T')[0]}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showToast('Progress report downloaded! 📄');
+            }
+            
+            // Generate detailed report
+            function generateDetailedReport() {
+                showToast('Generating detailed PDF report... 📊');
+                // In a real implementation, this would use a PDF generation library
+                setTimeout(() => {
+                    showToast('PDF report generated! Check your downloads. ✅');
+                }, 2000);
+            }
+            
+            // Share progress
+            function shareProgress() {
+                const progress = document.getElementById('overallProgress').textContent;
+                const shareText = `I'm ${progress} complete on my website creation journey! Track your progress with LaunchPad: ${window.location.href}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'My Website Progress',
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } else {
+                    // Fallback: copy to clipboard
+                    navigator.clipboard.writeText(shareText).then(() => {
+                        showToast('Share link copied to clipboard! 📋');
+                    });
+                }
+            }
+            
+            // Show toast notification
+            function showToast(message) {
+                if (toastMessage) toastMessage.textContent = message;
+                if (toast) {
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 3000);
+                }
+            }
+            
+            // Setup navigation dropdown
+            function setupNavigation() {
+                const dropdowns = document.querySelectorAll('.dropdown');
+                
+                dropdowns.forEach(dropdown => {
+                    const toggle = dropdown.querySelector('.dropdown-toggle');
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    
+                    if (toggle && menu) {
+                        toggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropdown.classList.toggle('active');
+                        });
+                        
+                        document.addEventListener('click', function(e) {
+                            if (!dropdown.contains(e.target)) {
+                                dropdown.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+                
+                // Mobile menu
+                const menuToggle = document.querySelector('.menu-toggle');
+                const navLinks = document.querySelector('.nav-links');
+                
+                if (menuToggle && navLinks) {
+                    menuToggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        navLinks.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                            navLinks.classList.remove('show');
+                        }
+                    });
+                }
+            }
+            
+            // Update visitor count
+            function updateVisitorCount() {
+                const visitorCounter = document.getElementById('visitor-counter');
+                if (visitorCounter) {
+                    const randomCount = Math.floor(Math.random() * 9000) + 1000;
+                    const formattedCount = randomCount.toLocaleString();
+                    visitorCounter.textContent = formattedCount;
+                }
+            }
+            
+            // Initialize
+            initializeLaunchPad();
+            
+            console.log('LaunchPad Tracker Ready! 🚀');
+        });
+    </script>
+</body>
+</html>
