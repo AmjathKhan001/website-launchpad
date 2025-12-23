@@ -1,31 +1,27 @@
 {
-  "version": 2,
-  "builds": [
+  "templates": [
     {
-      "src": "*.html",
-      "use": "@vercel/static"
+      "id": 1,
+      "name": "Business Pro",
+      "category": "business",
+      "description": "Professional business website template",
+      "preview": "business-pro.jpg"
     },
     {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "calculators/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.png",
-      "use": "@vercel/static"
+      "id": 2,
+      "name": "Creative Portfolio",
+      "category": "portfolio",
+      "description": "Modern portfolio for creatives",
+      "preview": "portfolio-creative.jpg"
     }
   ],
-  "routes": [
+  "tutorials": [
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "id": 1,
+      "title": "Getting Started Guide",
+      "category": "beginner",
+      "duration": "10 min",
+      "video": "getting-started.mp4"
     }
   ]
 }
