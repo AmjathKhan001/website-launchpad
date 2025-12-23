@@ -3,1419 +3,784 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaunchPad Pro - Complete Website Creation Tracker | AuraText Tools</title>
-    <meta name="description" content="Professional website creation tracker with step-by-step guidance, progress monitoring, and launch support.">
+    <title>Resources - WebsiteLaunchPad</title>
     
-    <!-- Professional Styles -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- LaunchPad CSS -->
-    <link rel="stylesheet" href="launchpad.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-    
+    <!-- Resources Specific CSS -->
     <style>
-        /* Additional Custom Styles */
-        .launchpad-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        /* Welcome Screen */
-        .welcome-screen {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
-            border-radius: 24px;
-            margin: 2rem 0;
-            border: 1px solid #dbeafe;
-        }
-        
-        .welcome-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+        /* Resources Layout */
+        .resources-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #3b82f6 100%);
             color: white;
-            margin: 0 auto 2rem;
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
         }
         
-        .welcome-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .resources-header h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
+            font-weight: 800;
         }
         
-        .welcome-subtitle {
-            font-size: 1.25rem;
-            color: #4b5563;
+        .resources-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
             max-width: 600px;
             margin: 0 auto 2rem;
-            line-height: 1.6;
         }
         
-        /* Project Setup Wizard */
-        .wizard-container {
+        /* Search & Filter */
+        .search-section {
             background: white;
-            border-radius: 20px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            margin: 2rem 0;
-            overflow: hidden;
-        }
-        
-        .wizard-header {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .wizard-steps {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 2rem;
-        }
-        
-        .wizard-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            margin-top: -4rem;
             position: relative;
+            z-index: 10;
         }
         
-        .wizard-step::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            right: -50%;
-            height: 2px;
-            background: #e5e7eb;
-            z-index: 1;
-        }
-        
-        .wizard-step:last-child::after {
-            display: none;
-        }
-        
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f3f4f6;
-            border: 2px solid #e5e7eb;
+        .search-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #6b7280;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .wizard-step.active .step-number {
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            border-color: #7c3aed;
-            color: white;
-        }
-        
-        .wizard-step.completed .step-number {
-            background: #10b981;
-            border-color: #10b981;
-            color: white;
-        }
-        
-        .step-label {
-            font-size: 0.875rem;
-            color: #6b7280;
-            text-align: center;
-        }
-        
-        .wizard-step.active .step-label {
-            color: #2563eb;
-            font-weight: 500;
-        }
-        
-        /* Detailed Guidance Cards */
-        .guidance-card {
-            background: white;
-            border-radius: 16px;
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
+            gap: 1rem;
             margin-bottom: 1.5rem;
         }
         
-        .guidance-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid #f3f4f6;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-        }
-        
-        .guidance-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-        
-        .guidance-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #111827;
+        .search-input {
             flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
         
-        .guidance-content {
-            padding: 1.5rem;
-            background: #f9fafb;
-            display: none;
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
         
-        .guidance-card.expanded .guidance-content {
-            display: block;
-        }
-        
-        /* Video Tutorials */
-        .video-placeholder {
-            background: linear-gradient(135deg, #1f2937, #374151);
-            border-radius: 12px;
-            height: 200px;
+        .filter-tags {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .filter-tag {
+            padding: 0.5rem 1.25rem;
+            background: var(--light-bg);
+            border: 2px solid var(--light-gray);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .filter-tag:hover {
+            border-color: var(--primary-blue);
+            background: white;
+        }
+        
+        .filter-tag.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+        
+        /* Resource Grid */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-blue);
+        }
+        
+        .resource-image {
+            height: 160px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            margin: 1rem 0;
-        }
-        
-        .video-placeholder i {
             font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.7;
+            position: relative;
         }
         
-        /* Code Examples */
-        .code-example {
-            background: #1f2937;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-        
-        .code-example pre {
-            color: #d1d5db;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            margin: 0;
-        }
-        
-        /* Success Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .metric-card {
+        .resource-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
             background: white;
-            border-radius: 16px;
+            color: var(--primary-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .resource-content {
             padding: 1.5rem;
-            border: 1px solid #e5e7eb;
-            text-align: center;
         }
         
-        .metric-value {
-            font-size: 2.5rem;
+        .resource-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--light-bg);
+            color: var(--primary-blue);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .resource-title {
+            font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark-text);
+            line-height: 1.4;
         }
         
-        .metric-label {
-            color: #6b7280;
-            font-size: 0.875rem;
+        .resource-description {
+            color: var(--gray-text);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
         
-        /* Support Chat */
-        .support-chat {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-text);
         }
         
-        .chat-toggle {
+        .resource-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .resource-difficulty {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        
+        .difficulty-beginner {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .difficulty-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .difficulty-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .resource-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        /* Learning Paths */
+        .learning-paths {
+            margin: 4rem 0;
+        }
+        
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .path-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+        
+        .path-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .path-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .path-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+        
+        .path-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--gray-text);
+        }
+        
+        .path-progress {
+            margin: 1.5rem 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Tools Section */
+        .tools-section {
+            margin: 4rem 0;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--light-gray);
             transition: all 0.3s ease;
+            text-align: center;
         }
         
-        .chat-toggle:hover {
-            transform: scale(1.1);
+        .tool-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
         
-        /* Achievement Badges */
-        .achievement-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .tool-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+        
+        .tool-description {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Newsletter */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #3b82f6 100%);
+            color: white;
+            padding: 4rem 2rem;
             border-radius: 20px;
-            color: #92400e;
-            font-weight: 500;
-            font-size: 0.875rem;
+            text-align: center;
+            margin: 4rem 0;
         }
         
-        /* Mobile Responsive */
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--light-gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .wizard-steps {
+            .resources-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .search-container {
                 flex-direction: column;
-                gap: 2rem;
             }
             
-            .wizard-step::after {
-                display: none;
+            .newsletter-form {
+                flex-direction: column;
             }
             
-            .welcome-title {
-                font-size: 2rem;
-            }
-            
-            .support-chat {
-                bottom: 1rem;
-                right: 1rem;
+            .resource-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-<body class="launchpad-light-theme">
+<body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-rocket" style="color: #7c3aed;"></i>
-                <span style="color: #1f2937;">LaunchPad Pro</span>
-            </a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="index.html#effects">Effects</a>
-                <a href="index.html#text-styles">Text Styles</a>
-                
-                <!-- Our Tools Dropdown -->
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle active" style="color: #7c3aed; font-weight: 600;">
-                        <i class="fas fa-tools"></i> Our Tools <i class="fas fa-chevron-down"></i>
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>WebsiteLaunchPad</span>
+                </a>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
                     </a>
-                    <div class="dropdown-menu" style="background: white; border-color: #e5e7eb;">
-                        <a href="index.html"><i class="fas fa-magic"></i> AuraText Generator</a>
-                        <a href="gradient.html"><i class="fas fa-fill-drip"></i> CSS Gradient</a>
-                        <a href="grid-generator.html"><i class="fas fa-th"></i> CSS Grid</a>
-                        <a href="flexbox-helper.html"><i class="fas fa-boxes"></i> Flexbox Helper</a>
-                        <a href="box-shadow.html"><i class="fas fa-square"></i> Box Shadow</a>
-                        <a href="border-generator.html"><i class="fas fa-border-style"></i> Border Generator</a>
-                        <a href="text-shadow-generator.html"><i class="fas fa-text-height"></i> Text Shadow</a>
-                        <a href="animations-generator.html"><i class="fas fa-play-circle"></i> Animations</a>
-                        <a href="palette-generator.html"><i class="fas fa-palette"></i> Color Palette</a>
-                        <a href="color-picker.html"><i class="fas fa-eye-dropper"></i> Color Picker</a>
-                        <a href="launchpad-pro.html" class="active" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(37, 99, 235, 0.1)); color: #7c3aed;">
-                            <i class="fas fa-rocket"></i> LaunchPad Pro
-                        </a>
+                    <a href="create-project.html" class="nav-link">
+                        <i class="fas fa-plus"></i> New Project
+                    </a>
+                    <a href="resources.html" class="nav-link active">
+                        <i class="fas fa-book"></i> Resources
+                    </a>
+                    <a href="pricing.html" class="nav-link">
+                        <i class="fas fa-tag"></i> Pricing
+                    </a>
+                    <div class="user-dropdown">
+                        <div class="user-avatar-small">
+                            <i class="fas fa-user"></i>
+                        </div>
                     </div>
                 </div>
-                
-                <a href="index.html#tools">More Tools</a>
-                <a href="index.html#try-now">Try Now</a>
-                <a href="index.html#blog">Blog</a>
-                <a href="index.html#contact">Contact</a>
-                <span class="visitor-count" style="color: #6b7280;">
-                    <i class="fas fa-users"></i>
-                    <span id="visitor-counter">1,234</span>
-                </span>
-            </div>
-            <button class="menu-toggle" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            </nav>
         </div>
-    </nav>
+    </header>
+
+    <!-- Resources Header -->
+    <section class="resources-header">
+        <div class="container">
+            <h1>Master Web Development</h1>
+            <p>Everything you need to build amazing websites. Tutorials, templates, tools, and learning paths curated for success.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#tutorials" class="btn" style="background: white; color: var(--primary-blue);">
+                    <i class="fas fa-video"></i> Start Learning
+                </a>
+                <a href="#templates" class="btn" style="background: transparent; border: 2px solid white;">
+                    <i class="fas fa-download"></i> Get Templates
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Main Content -->
-    <main class="container tool-page">
-        <!-- Welcome Screen -->
-        <section class="welcome-screen">
-            <div class="welcome-icon">
-                <i class="fas fa-rocket"></i>
-            </div>
-            <h1 class="welcome-title">Welcome to LaunchPad Pro</h1>
-            <p class="welcome-subtitle">Your complete step-by-step guide to creating and launching a successful website. We'll guide you through every phase with detailed instructions, video tutorials, and real-time support.</p>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-                <button class="btn-pro-primary" id="startWizardBtn">
-                    <i class="fas fa-play-circle"></i> Start Your Journey
-                </button>
-                <button class="btn-pro-secondary" id="loadProjectBtn">
-                    <i class="fas fa-folder-open"></i> Load Existing Project
+    <main class="container">
+        <!-- Search & Filter -->
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search tutorials, templates, tools..." id="searchInput">
+                <button class="btn btn-primary" id="searchBtn">
+                    <i class="fas fa-search"></i> Search
                 </button>
             </div>
             
-            <div style="margin-top: 3rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
-                <div style="text-align: center;">
-                    <div style="font-size: 2rem; font-weight: 700; color: #7c3aed;">25</div>
-                    <div style="color: #6b7280; font-size: 0.875rem;">Steps to Launch</div>
+            <div class="filter-tags" id="categoryFilters">
+                <span class="filter-tag active" data-category="all">All Resources</span>
+                <span class="filter-tag" data-category="tutorial">Video Tutorials</span>
+                <span class="filter-tag" data-category="template">Templates</span>
+                <span class="filter-tag" data-category="tool">Tools</span>
+                <span class="filter-tag" data-category="article">Articles</span>
+                <span class="filter-tag" data-category="cheatsheet">Cheat Sheets</span>
+            </div>
+        </section>
+
+        <!-- Resources Grid -->
+        <section id="tutorials">
+            <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Featured Resources</h2>
+            <div class="resource-grid" id="resourcesGrid">
+                <!-- Resources will be loaded by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Learning Paths -->
+        <section class="learning-paths">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Structured Learning Paths</h2>
+            <p style="text-align: center; color: var(--gray-text); max-width: 600px; margin: 0 auto 3rem;">
+                Follow our curated learning paths to master web development step by step.
+            </p>
+            
+            <div class="paths-grid">
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="path-title">Beginner Web Developer</h3>
+                    <p style="color: var(--gray-text); margin-bottom: 1rem;">
+                        Start from scratch and learn HTML, CSS, and JavaScript fundamentals.
+                    </p>
+                    <div class="path-stats">
+                        <span><i class="fas fa-book"></i> 12 Modules</span>
+                        <span><i class="fas fa-clock"></i> 40 Hours</span>
+                    </div>
+                    <div class="path-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-play"></i> Start Path
+                    </a>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 2rem; font-weight: 700; color: #0d9488;">50+</div>
-                    <div style="color: #6b7280; font-size: 0.875rem;">Video Tutorials</div>
+                
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="path-title">Business Website Builder</h3>
+                    <p style="color: var(--gray-text); margin-bottom: 1rem;">
+                        Learn to build professional business websites with modern tools.
+                    </p>
+                    <div class="path-stats">
+                        <span><i class="fas fa-book"></i> 8 Modules</span>
+                        <span><i class="fas fa-clock"></i> 25 Hours</span>
+                    </div>
+                    <div class="path-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-play"></i> Start Path
+                    </a>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 2rem; font-weight: 700; color: #2563eb;">24/7</div>
-                    <div style="color: #6b7280; font-size: 0.875rem;">Support Available</div>
+                
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="path-title">E-commerce Developer</h3>
+                    <p style="color: var(--gray-text); margin-bottom: 1rem;">
+                        Master building online stores with payment integration and inventory.
+                    </p>
+                    <div class="path-stats">
+                        <span><i class="fas fa-book"></i> 10 Modules</span>
+                        <span><i class="fas fa-clock"></i> 35 Hours</span>
+                    </div>
+                    <div class="path-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-play"></i> Start Path
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Wizard Container (Initially Hidden) -->
-        <div class="wizard-container" id="projectWizard" style="display: none;">
-            <div class="wizard-header">
-                <h2 style="margin: 0; color: #1f2937;">Website Project Setup</h2>
-                <p style="margin: 0.5rem 0 0; color: #6b7280;">Complete these steps to set up your project</p>
-            </div>
+        <!-- Templates Section -->
+        <section id="templates" style="margin: 4rem 0;">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Ready-to-Use Templates</h2>
+            <p style="text-align: center; color: var(--gray-text); max-width: 600px; margin: 0 auto 3rem;">
+                Jumpstart your projects with our professionally designed templates.
+            </p>
             
-            <!-- Wizard Steps -->
-            <div class="wizard-steps">
-                <div class="wizard-step active" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-label">Project Info</div>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-briefcase"></i>
+                        <span class="resource-badge">Free</span>
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-category">Business</span>
+                        <h3 class="resource-title">Corporate Pro Template</h3>
+                        <p class="resource-description">
+                            Professional business template with responsive design and modern layout.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="fas fa-file-code"></i> HTML/CSS/JS
+                            </div>
+                            <div class="resource-difficulty difficulty-beginner">
+                                Beginner
+                            </div>
+                        </div>
+                        <div class="resource-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-eye"></i> Preview
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="wizard-step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-label">Domain & Hosting</div>
+                
+                <div class="resource-card">
+                    <div class="resource-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-palette"></i>
+                        <span class="resource-badge">Free</span>
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-category">Portfolio</span>
+                        <h3 class="resource-title">Creative Portfolio Template</h3>
+                        <p class="resource-description">
+                            Modern portfolio template perfect for designers and creatives.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="fas fa-file-code"></i> HTML/CSS
+                            </div>
+                            <div class="resource-difficulty difficulty-beginner">
+                                Beginner
+                            </div>
+                        </div>
+                        <div class="resource-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-eye"></i> Preview
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="wizard-step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-label">Technology Stack</div>
-                </div>
-                <div class="wizard-step" data-step="4">
-                    <div class="step-number">4</div>
-                    <div class="step-label">Team Setup</div>
-                </div>
-                <div class="wizard-step" data-step="5">
-                    <div class="step-number">5</div>
-                    <div class="step-label">Launch Plan</div>
+                
+                <div class="resource-card">
+                    <div class="resource-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="resource-badge">Pro</span>
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-category">E-commerce</span>
+                        <h3 class="resource-title">Online Store Template</h3>
+                        <p class="resource-description">
+                            Complete e-commerce template with product listings and cart functionality.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="fas fa-file-code"></i> HTML/CSS/JS
+                            </div>
+                            <div class="resource-difficulty difficulty-intermediate">
+                                Intermediate
+                            </div>
+                        </div>
+                        <div class="resource-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-eye"></i> Preview
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="tools-section">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Essential Tools</h2>
+            <p style="text-align: center; color: var(--gray-text); max-width: 600px; margin: 0 auto 3rem;">
+                Tools and utilities to make your web development journey easier.
+            </p>
             
-            <!-- Step Contents -->
-            <div id="stepContents" style="padding: 2rem;">
-                <!-- Step 1: Project Info -->
-                <div class="step-content active" data-step="1">
-                    <h3 style="margin-bottom: 1.5rem; color: #1f2937;">Tell us about your project</h3>
-                    
-                    <div style="display: grid; gap: 1.5rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Project Name</label>
-                            <input type="text" id="projectName" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;" placeholder="e.g., My Business Website">
-                        </div>
-                        
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Project Type</label>
-                            <select id="projectType" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;">
-                                <option value="">Select project type</option>
-                                <option value="business">Business Website</option>
-                                <option value="portfolio">Portfolio Website</option>
-                                <option value="ecommerce">E-commerce Store</option>
-                                <option value="blog">Blog/Personal Website</option>
-                                <option value="saas">SaaS Application</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Project Description</label>
-                            <textarea id="projectDescription" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; min-height: 100px;" placeholder="Describe your website's purpose, target audience, and key features..."></textarea>
-                        </div>
-                        
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Launch Deadline</label>
-                            <input type="date" id="launchDeadline" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;">
-                        </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
                     </div>
+                    <h3 class="tool-name">Code Validator</h3>
+                    <p class="tool-description">
+                        Validate your HTML, CSS, and JavaScript code for errors and best practices.
+                    </p>
+                    <a href="#" class="btn btn-secondary">Use Tool</a>
                 </div>
                 
-                <!-- Step 2: Domain & Hosting -->
-                <div class="step-content" data-step="2">
-                    <h3 style="margin-bottom: 1.5rem; color: #1f2937;">Domain and Hosting Setup</h3>
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">We'll help you choose the right domain and hosting for your needs.</p>
-                    
-                    <div class="guidance-card">
-                        <div class="guidance-header" onclick="toggleGuidance(this)">
-                            <div class="guidance-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <div class="guidance-title">Domain Name Selection</div>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="guidance-content">
-                            <h4>How to Choose a Great Domain Name:</h4>
-                            <ul style="color: #4b5563; line-height: 1.6; padding-left: 1.5rem;">
-                                <li><strong>Keep it short and memorable</strong> (ideally under 15 characters)</li>
-                                <li><strong>Use .com extension</strong> when possible</li>
-                                <li><strong>Avoid hyphens and numbers</strong></li>
-                                <li><strong>Make it brandable</strong> rather than generic</li>
-                                <li><strong>Check social media availability</strong></li>
-                            </ul>
-                            
-                            <div style="margin-top: 1rem;">
-                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Check Domain Availability:</label>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <input type="text" id="domainCheck" style="flex: 1; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="yourdomain">
-                                    <select style="padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;">
-                                        <option>.com</option>
-                                        <option>.net</option>
-                                        <option>.org</option>
-                                        <option>.io</option>
-                                        <option>.dev</option>
-                                    </select>
-                                    <button class="btn-pro-secondary" onclick="checkDomain()">
-                                        <i class="fas fa-search"></i> Check
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
+                    <h3 class="tool-name">Responsive Tester</h3>
+                    <p class="tool-description">
+                        Test how your website looks on different screen sizes and devices.
+                    </p>
+                    <a href="#" class="btn btn-secondary">Use Tool</a>
                 </div>
                 
-                <!-- Step 3: Technology Stack -->
-                <div class="step-content" data-step="3">
-                    <h3 style="margin-bottom: 1.5rem; color: #1f2937;">Choose Your Technology Stack</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <div class="tech-option" onclick="selectTech(this, 'html')" style="border: 2px solid #d1d5db; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem; color: #e34c26;">
-                                <i class="fab fa-html5"></i>
-                            </div>
-                            <div style="font-weight: 600; margin-bottom: 0.5rem;">HTML/CSS/JS</div>
-                            <div style="color: #6b7280; font-size: 0.875rem;">Static Website</div>
-                        </div>
-                        
-                        <div class="tech-option" onclick="selectTech(this, 'wordpress')" style="border: 2px solid #d1d5db; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem; color: #21759b;">
-                                <i class="fab fa-wordpress"></i>
-                            </div>
-                            <div style="font-weight: 600; margin-bottom: 0.5rem;">WordPress</div>
-                            <div style="color: #6b7280; font-size: 0.875rem;">Blogs & CMS</div>
-                        </div>
-                        
-                        <div class="tech-option" onclick="selectTech(this, 'react')" style="border: 2px solid #d1d5db; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem; color: #61dafb;">
-                                <i class="fab fa-react"></i>
-                            </div>
-                            <div style="font-weight: 600; margin-bottom: 0.5rem;">React.js</div>
-                            <div style="color: #6b7280; font-size: 0.875rem;">Web Applications</div>
-                        </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
+                    <h3 class="tool-name">Color Palette Generator</h3>
+                    <p class="tool-description">
+                        Create beautiful color schemes for your website with our color tool.
+                    </p>
+                    <a href="#" class="btn btn-secondary">Use Tool</a>
                 </div>
                 
-                <!-- Step Navigation -->
-                <div style="display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
-                    <button class="btn-pro-secondary" id="prevStepBtn" style="display: none;">
-                        <i class="fas fa-arrow-left"></i> Previous
-                    </button>
-                    <button class="btn-pro-primary" id="nextStepBtn">
-                        Continue <i class="fas fa-arrow-right"></i>
-                    </button>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3 class="tool-name">Image Optimizer</h3>
+                    <p class="tool-description">
+                        Optimize and compress images for faster website loading times.
+                    </p>
+                    <a href="#" class="btn btn-secondary">Use Tool</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Main Dashboard (Initially Hidden) -->
-        <div id="mainDashboard" style="display: none;">
-            <!-- Progress Overview -->
-            <section class="pro-card" style="margin-bottom: 2rem;">
-                <div class="pro-card-header">
-                    <div>
-                        <div class="pro-card-title" id="dashboardTitle">Website Project Dashboard</div>
-                        <div class="pro-card-subtitle" id="projectDeadline">Launch Date: Loading...</div>
-                    </div>
-                    <div style="display: flex; gap: 1rem;">
-                        <span class="status-badge status-in-progress" id="overallStatus">
-                            <i class="fas fa-sync-alt"></i> In Progress
-                        </span>
-                        <span class="achievement-badge" id="achievementCount">
-                            <i class="fas fa-trophy"></i> 0 Achievements
-                        </span>
-                    </div>
-                </div>
+        <!-- Newsletter -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Stay Updated</h2>
+                <p style="opacity: 0.9; margin-bottom: 2rem;">
+                    Get weekly web development tips, new tutorials, and exclusive resources delivered to your inbox.
+                </p>
                 
-                <div style="padding: 1.5rem;">
-                    <!-- Progress Bars -->
-                    <div style="margin-bottom: 2rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span style="font-weight: 500;">Overall Progress</span>
-                            <span style="font-weight: 600; color: #7c3aed;" id="overallProgressText">0%</span>
-                        </div>
-                        <div class="pro-progress-container">
-                            <div class="pro-progress-bar" id="overallProgressBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Metrics Grid -->
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-value" id="daysRemaining">30</div>
-                            <div class="metric-label">Days to Launch</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="completedTasks">0</div>
-                            <div class="metric-label">Tasks Completed</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="activePhase">1</div>
-                            <div class="metric-label">Current Phase</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="teamMembers">1</div>
-                            <div class="metric-label">Team Members</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Phases Container -->
-            <div id="phasesContainer">
-                <!-- Phases will be loaded here -->
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="btn" style="background: white; color: var(--primary-blue);">
+                        <i class="fas fa-paper-plane"></i> Subscribe
+                    </button>
+                </form>
+                
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">
+                    No spam. Unsubscribe anytime.
+                </p>
             </div>
-
-            <!-- Resource Library -->
-            <section class="pro-card" style="margin: 2rem 0;">
-                <div class="pro-card-header">
-                    <div class="pro-card-title">
-                        <i class="fas fa-book-open" style="margin-right: 0.5rem;"></i>
-                        Resource Library
-                    </div>
-                    <div class="pro-card-subtitle">Tools, tutorials, and templates for your project</div>
-                </div>
-                
-                <div style="padding: 1.5rem;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-                        <div class="guidance-card">
-                            <div class="guidance-header" onclick="toggleGuidance(this)">
-                                <div class="guidance-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                                    <i class="fas fa-video"></i>
-                                </div>
-                                <div class="guidance-title">Video Tutorials</div>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="guidance-content">
-                                <div class="video-placeholder">
-                                    <i class="fas fa-play-circle"></i>
-                                    <div>HTML & CSS Crash Course</div>
-                                    <div style="font-size: 0.875rem; opacity: 0.7;">Duration: 2 hours</div>
-                                </div>
-                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                                    <a href="#" class="pro-resource-badge"><i class="fas fa-play"></i> Watch Now</a>
-                                    <a href="#" class="pro-resource-badge"><i class="fas fa-download"></i> Download Slides</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="guidance-card">
-                            <div class="guidance-header" onclick="toggleGuidance(this)">
-                                <div class="guidance-icon" style="background: linear-gradient(135deg, #10b981, #0d9488);">
-                                    <i class="fas fa-code"></i>
-                                </div>
-                                <div class="guidance-title">Code Templates</div>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="guidance-content">
-                                <div class="code-example">
-                                    <pre>&lt;!-- Navigation Template --&gt;
-&lt;nav class="navbar"&gt;
-  &lt;a href="/"&gt;Home&lt;/a&gt;
-  &lt;a href="#about"&gt;About&lt;/a&gt;
-  &lt;a href="#contact"&gt;Contact&lt;/a&gt;
-&lt;/nav&gt;</pre>
-                                </div>
-                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                                    <a href="#" class="pro-resource-badge"><i class="fas fa-copy"></i> Copy Code</a>
-                                    <a href="#" class="pro-resource-badge"><i class="fas fa-download"></i> Download All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+        </section>
     </main>
 
-    <!-- Support Chat -->
-    <div class="support-chat">
-        <div class="chat-toggle" onclick="toggleChat()">
-            <i class="fas fa-comments"></i>
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="footer" style="background: white; border-top: 1px solid #e5e7eb; color: #6b7280;">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-rocket" style="color: #7c3aed;"></i>
-                    <span style="color: #1f2937;">LaunchPad Pro</span>
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>WebsiteLaunchPad</span>
+                    </div>
+                    <p class="footer-description">
+                        Your complete platform for website creation, from idea to successful launch.
+                    </p>
                 </div>
-                <p class="footer-tagline">Your complete website creation companion</p>
                 
                 <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#effects">Effects</a>
-                    <a href="index.html#text-styles">Text Styles</a>
-                    <a href="gradient.html">Gradient Tool</a>
-                    <a href="grid-generator.html">Grid Generator</a>
-                    <a href="flexbox-helper.html">Flexbox Helper</a>
-                    <a href="box-shadow.html">Box Shadow</a>
-                    <a href="border-generator.html">Border Generator</a>
-                    <a href="text-shadow-generator.html">Text Shadow</a>
-                    <a href="animations-generator.html">Animations</a>
-                    <a href="palette-generator.html">Color Palette</a>
-                    <a href="color-picker.html">Color Picker</a>
-                    <a href="launchpad-pro.html">LaunchPad Pro</a>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#tutorials">Tutorials</a></li>
+                        <li><a href="#templates">Templates</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
                 </div>
                 
-                <div class="copyright">
-                    <p>© 2025 www.auratext.online. Made with <i class="fas fa-heart" style="color: #ef4444;"></i> by <a href="https://www.amjathkhan.com" target="_blank" rel="noopener noreferrer" style="color: #7c3aed;">Amjath Khan</a>.</p>
+                <div class="footer-links">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="create-project.html">New Project</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="/community">Community</a></li>
+                    </ul>
                 </div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="/status">System Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 WebsiteLaunchPad.com. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
-    <script>
-        // Global Variables
-        let currentProject = {
-            name: '',
-            type: '',
-            description: '',
-            deadline: '',
-            techStack: '',
-            currentStep: 1,
-            progress: 0,
-            completedTasks: 0,
-            totalTasks: 25
-        };
-
-        // Initialize LaunchPad
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeLaunchPad();
-            setupNavigation();
-            loadSavedProject();
-        });
-
-        // Initialize LaunchPad
-        function initializeLaunchPad() {
-            // Setup event listeners
-            document.getElementById('startWizardBtn').addEventListener('click', startWizard);
-            document.getElementById('loadProjectBtn').addEventListener('click', loadProject);
-            document.getElementById('nextStepBtn').addEventListener('click', nextStep);
-            document.getElementById('prevStepBtn').addEventListener('click', prevStep);
-            
-            // Setup wizard step navigation
-            setupWizardNavigation();
-            
-            // Load default project if exists
-            const saved = localStorage.getItem('launchpadProject');
-            if (saved) {
-                document.getElementById('loadProjectBtn').innerHTML = '<i class="fas fa-folder-open"></i> Continue Project';
-            }
-        }
-
-        // Start Wizard
-        function startWizard() {
-            document.querySelector('.welcome-screen').style.display = 'none';
-            document.getElementById('projectWizard').style.display = 'block';
-            resetWizard();
-        }
-
-        // Load Project
-        function loadProject() {
-            const saved = localStorage.getItem('launchpadProject');
-            if (saved) {
-                currentProject = JSON.parse(saved);
-                showDashboard();
-            } else {
-                alert('No saved project found. Starting new project...');
-                startWizard();
-            }
-        }
-
-        // Setup Wizard Navigation
-        function setupWizardNavigation() {
-            document.querySelectorAll('.wizard-step').forEach(step => {
-                step.addEventListener('click', function() {
-                    const stepNum = parseInt(this.dataset.step);
-                    if (stepNum <= currentProject.currentStep) {
-                        goToStep(stepNum);
-                    }
-                });
-            });
-        }
-
-        // Go to specific step
-        function goToStep(step) {
-            // Update current step
-            currentProject.currentStep = step;
-            
-            // Update wizard steps
-            document.querySelectorAll('.wizard-step').forEach(stepEl => {
-                const stepNum = parseInt(stepEl.dataset.step);
-                stepEl.classList.remove('active', 'completed');
-                
-                if (stepNum < step) {
-                    stepEl.classList.add('completed');
-                } else if (stepNum === step) {
-                    stepEl.classList.add('active');
-                }
-            });
-            
-            // Show step content
-            document.querySelectorAll('.step-content').forEach(content => {
-                content.classList.remove('active');
-                if (parseInt(content.dataset.step) === step) {
-                    content.classList.add('active');
-                }
-            });
-            
-            // Update navigation buttons
-            updateNavigationButtons();
-        }
-
-        // Next Step
-        function nextStep() {
-            // Validate current step
-            if (!validateCurrentStep()) {
-                return;
-            }
-            
-            // Save step data
-            saveStepData(currentProject.currentStep);
-            
-            // Move to next step or finish
-            if (currentProject.currentStep < 5) {
-                goToStep(currentProject.currentStep + 1);
-            } else {
-                finishWizard();
-            }
-        }
-
-        // Previous Step
-        function prevStep() {
-            if (currentProject.currentStep > 1) {
-                goToStep(currentProject.currentStep - 1);
-            }
-        }
-
-        // Update Navigation Buttons
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevStepBtn');
-            const nextBtn = document.getElementById('nextStepBtn');
-            
-            // Show/hide previous button
-            if (currentProject.currentStep > 1) {
-                prevBtn.style.display = 'flex';
-            } else {
-                prevBtn.style.display = 'none';
-            }
-            
-            // Update next button text
-            if (currentProject.currentStep === 5) {
-                nextBtn.innerHTML = 'Finish & Create Project <i class="fas fa-check"></i>';
-            } else {
-                nextBtn.innerHTML = 'Continue <i class="fas fa-arrow-right"></i>';
-            }
-        }
-
-        // Validate Current Step
-        function validateCurrentStep() {
-            switch (currentProject.currentStep) {
-                case 1:
-                    const projectName = document.getElementById('projectName').value.trim();
-                    const projectType = document.getElementById('projectType').value;
-                    
-                    if (!projectName) {
-                        alert('Please enter a project name');
-                        return false;
-                    }
-                    
-                    if (!projectType) {
-                        alert('Please select a project type');
-                        return false;
-                    }
-                    
-                    return true;
-                    
-                case 2:
-                    // Domain validation would go here
-                    return true;
-                    
-                default:
-                    return true;
-            }
-        }
-
-        // Save Step Data
-        function saveStepData(step) {
-            switch (step) {
-                case 1:
-                    currentProject.name = document.getElementById('projectName').value.trim();
-                    currentProject.type = document.getElementById('projectType').value;
-                    currentProject.description = document.getElementById('projectDescription').value.trim();
-                    currentProject.deadline = document.getElementById('launchDeadline').value;
-                    break;
-                    
-                case 3:
-                    // Save tech stack selection
-                    const selectedTech = document.querySelector('.tech-option.selected');
-                    if (selectedTech) {
-                        currentProject.techStack = selectedTech.dataset.tech;
-                    }
-                    break;
-            }
-        }
-
-        // Select Technology
-        window.selectTech = function(element, tech) {
-            // Remove selection from all
-            document.querySelectorAll('.tech-option').forEach(opt => {
-                opt.style.borderColor = '#d1d5db';
-                opt.style.boxShadow = 'none';
-            });
-            
-            // Select current
-            element.style.borderColor = '#7c3aed';
-            element.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.2)';
-            element.classList.add('selected');
-            element.dataset.tech = tech;
-        }
-
-        // Finish Wizard
-        function finishWizard() {
-            // Create project object
-            const project = {
-                ...currentProject,
-                id: Date.now(),
-                createdAt: new Date().toISOString(),
-                phases: getDefaultPhases(),
-                tasks: getDefaultTasks(),
-                progress: 0,
-                completedTasks: 0
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('launchpadProject', JSON.stringify(project));
-            
-            // Show dashboard
-            showDashboard();
-        }
-
-        // Show Dashboard
-        function showDashboard() {
-            // Load project data
-            const saved = localStorage.getItem('launchpadProject');
-            if (saved) {
-                currentProject = JSON.parse(saved);
-            }
-            
-            // Hide wizard, show dashboard
-            document.getElementById('projectWizard').style.display = 'none';
-            document.getElementById('mainDashboard').style.display = 'block';
-            
-            // Update dashboard
-            updateDashboard();
-            
-            // Load phases
-            loadPhases();
-        }
-
-        // Update Dashboard
-        function updateDashboard() {
-            // Update project info
-            document.getElementById('dashboardTitle').textContent = currentProject.name;
-            
-            if (currentProject.deadline) {
-                const deadline = new Date(currentProject.deadline);
-                const today = new Date();
-                const daysRemaining = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
-                document.getElementById('projectDeadline').textContent = `Launch Date: ${deadline.toLocaleDateString()} (${daysRemaining} days remaining)`;
-                document.getElementById('daysRemaining').textContent = daysRemaining > 0 ? daysRemaining : 0;
-            }
-            
-            // Calculate progress
-            const progress = currentProject.progress || 0;
-            document.getElementById('overallProgressText').textContent = `${progress}%`;
-            document.getElementById('overallProgressBar').style.width = `${progress}%`;
-            
-            // Update counts
-            document.getElementById('completedTasks').textContent = currentProject.completedTasks || 0;
-            document.getElementById('activePhase').textContent = getActivePhase();
-            
-            // Update status
-            if (progress >= 100) {
-                document.getElementById('overallStatus').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                document.getElementById('overallStatus').className = 'status-badge status-complete';
-            }
-        }
-
-        // Get Active Phase
-        function getActivePhase() {
-            if (!currentProject.phases) return 1;
-            
-            for (let i = 0; i < currentProject.phases.length; i++) {
-                if (currentProject.phases[i].progress < 100) {
-                    return i + 1;
-                }
-            }
-            return currentProject.phases.length;
-        }
-
-        // Load Phases
-        function loadPhases() {
-            const container = document.getElementById('phasesContainer');
-            if (!container || !currentProject.phases) return;
-            
-            container.innerHTML = '';
-            
-            currentProject.phases.forEach((phase, index) => {
-                const phaseCard = document.createElement('div');
-                phaseCard.className = 'pro-card';
-                phaseCard.style.marginBottom = '1.5rem';
-                
-                phaseCard.innerHTML = `
-                    <div class="pro-card-header" style="cursor: pointer;" onclick="togglePhase(${index})">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div style="width: 40px; height: 40px; border-radius: 10px; background: ${getPhaseColor(index)}; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="${getPhaseIcon(index)}"></i>
-                            </div>
-                            <div>
-                                <div class="pro-card-title">${phase.name}</div>
-                                <div class="pro-card-subtitle">${phase.description}</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span class="status-badge ${phase.progress === 100 ? 'status-complete' : phase.progress > 0 ? 'status-in-progress' : 'status-pending'}">
-                                ${phase.progress === 100 ? 'Complete' : phase.progress > 0 ? 'In Progress' : 'Pending'}
-                            </span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                    <div id="phaseContent${index}" style="display: none; padding: 1.5rem;">
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Progress</span>
-                                <span style="font-weight: 600; color: #7c3aed;">${phase.progress}%</span>
-                            </div>
-                            <div class="pro-progress-container">
-                                <div class="pro-progress-bar" style="width: ${phase.progress}%"></div>
-                            </div>
-                        </div>
-                        <div id="phaseTasks${index}">
-                            <!-- Tasks will be loaded here -->
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(phaseCard);
-                
-                // Load tasks for this phase
-                setTimeout(() => loadPhaseTasks(index, phase.tasks), 100);
-            });
-        }
-
-        // Load Phase Tasks
-        function loadPhaseTasks(phaseIndex, tasks) {
-            const container = document.getElementById(`phaseTasks${phaseIndex}`);
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            tasks.forEach((task, taskIndex) => {
-                const taskElement = document.createElement('div');
-                taskElement.className = `pro-checklist-item ${task.completed ? 'completed' : ''}`;
-                taskElement.dataset.phase = phaseIndex;
-                taskElement.dataset.task = taskIndex;
-                
-                taskElement.innerHTML = `
-                    <div class="pro-checkbox" onclick="toggleTask(${phaseIndex}, ${taskIndex})">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="pro-checklist-content">
-                        <div class="pro-checklist-title">${task.title}</div>
-                        <div class="pro-checklist-desc">${task.description}</div>
-                        <div class="pro-checklist-resources">
-                            ${task.resources.map(resource => `
-                                <a href="${resource.url}" target="_blank" class="pro-resource-badge">
-                                    <i class="${resource.icon}"></i> ${resource.name}
-                                </a>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(taskElement);
-            });
-        }
-
-        // Toggle Phase
-        window.togglePhase = function(index) {
-            const content = document.getElementById(`phaseContent${index}`);
-            const icon = document.querySelector(`#phaseContent${index}`).previousElementSibling.querySelector('.fa-chevron-down');
-            
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                content.style.display = 'none';
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        }
-
-        // Toggle Task Completion
-        window.toggleTask = function(phaseIndex, taskIndex) {
-            // Toggle completion status
-            currentProject.phases[phaseIndex].tasks[taskIndex].completed = 
-                !currentProject.phases[phaseIndex].tasks[taskIndex].completed;
-            
-            // Update phase progress
-            const phase = currentProject.phases[phaseIndex];
-            const completedTasks = phase.tasks.filter(t => t.completed).length;
-            phase.progress = Math.round((completedTasks / phase.tasks.length) * 100);
-            
-            // Update overall progress
-            updateOverallProgress();
-            
-            // Save changes
-            saveProject();
-            
-            // Reload UI
-            loadPhaseTasks(phaseIndex, phase.tasks);
-            updateDashboard();
-        }
-
-        // Update Overall Progress
-        function updateOverallProgress() {
-            let totalTasks = 0;
-            let completedTasks = 0;
-            
-            currentProject.phases.forEach(phase => {
-                totalTasks += phase.tasks.length;
-                completedTasks += phase.tasks.filter(t => t.completed).length;
-            });
-            
-            currentProject.completedTasks = completedTasks;
-            currentProject.progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-        }
-
-        // Save Project
-        function saveProject() {
-            localStorage.setItem('launchpadProject', JSON.stringify(currentProject));
-        }
-
-        // Get Default Phases
-        function getDefaultPhases() {
-            return [
-                {
-                    name: "Planning & Strategy",
-                    description: "Define goals, research, and create project plan",
-                    progress: 0,
-                    color: "#7c3aed",
-                    tasks: [
-                        {
-                            title: "Define Website Purpose",
-                            description: "Clearly outline what your website should achieve",
-                            completed: false,
-                            resources: [
-                                { name: "Goal Worksheet", url: "#", icon: "fas fa-file-alt" },
-                                { name: "Examples", url: "#", icon: "fas fa-eye" }
-                            ]
-                        },
-                        {
-                            title: "Competitor Analysis",
-                            description: "Research 3-5 competitor websites",
-                            completed: false,
-                            resources: [
-                                { name: "Analysis Template", url: "#", icon: "fas fa-table" },
-                                { name: "SWOT Guide", url: "#", icon: "fas fa-chart-bar" }
-                            ]
-                        },
-                        {
-                            title: "Create Sitemap",
-                            description: "Plan all pages and their hierarchy",
-                            completed: false,
-                            resources: [
-                                { name: "Sitemap Tool", url: "#", icon: "fas fa-sitemap" },
-                                { name: "Examples", url: "#", icon: "fas fa-project-diagram" }
-                            ]
-                        },
-                        {
-                            title: "Content Strategy",
-                            description: "Plan all text, images, and media",
-                            completed: false,
-                            resources: [
-                                { name: "Content Calendar", url: "#", icon: "fas fa-calendar" },
-                                { name: "Writing Guide", url: "#", icon: "fas fa-pen" }
-                            ]
-                        },
-                        {
-                            title: "Brand Guidelines",
-                            description: "Define colors, fonts, and visual style",
-                            completed: false,
-                            resources: [
-                                { name: "AuraText Generator", url: "index.html", icon: "fas fa-palette" },
-                                { name: "Color Palette", url: "palette-generator.html", icon: "fas fa-fill-drip" }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: "Design & Development",
-                    description: "Create wireframes, design, and build website",
-                    progress: 0,
-                    color: "#2563eb",
-                    tasks: [
-                        {
-                            title: "Create Wireframes",
-                            description: "Design page layouts and user flow",
-                            completed: false,
-                            resources: [
-                                { name: "Figma Templates", url: "#", icon: "fas fa-pencil-ruler" },
-                                { name: "Wireframe Guide", url: "#", icon: "fas fa-ruler-combined" }
-                            ]
-                        },
-                        {
-                            title: "Design Mockups",
-                            description: "Create detailed visual designs",
-                            completed: false,
-                            resources: [
-                                { name: "Design System", url: "#", icon: "fas fa-paint-brush" },
-                                { name: "UI Kits", url: "#", icon: "fas fa-box" }
-                            ]
-                        },
-                        {
-                            title: "Set Up Development Environment",
-                            description: "Install tools and create project structure",
-                            completed: false,
-                            resources: [
-                                { name: "VS Code Setup", url: "#", icon: "fas fa-code" },
-                                { name: "Git Setup", url: "#", icon: "fab fa-git" }
-                            ]
-                        },
-                        {
-                            title: "Build Homepage",
-                            description: "Code the main landing page",
-                            completed: false,
-                            resources: [
-                                { name: "HTML/CSS Guide", url: "#", icon: "fab fa-html5" },
-                                { name: "Templates", url: "#", icon: "fas fa-file-code" }
-                            ]
-                        },
-                        {
-                            title: "Build Inner Pages",
-                            description: "Create all remaining pages",
-                            completed: false,
-                            resources: [
-                                { name: "Page Templates", url: "#", icon: "fas fa-copy" },
-                                { name: "Components", url: "#", icon: "fas fa-cube" }
-                            ]
-                        },
-                        {
-                            title: "Responsive Design",
-                            description: "Ensure mobile compatibility",
-                            completed: false,
-                            resources: [
-                                { name: "Media Queries", url: "#", icon: "fas fa-mobile-alt" },
-                                { name: "Testing Tools", url: "#", icon: "fas fa-tablet-alt" }
-                            ]
-                        }
-                    ]
-                }
-                // Add more phases as needed...
-            ];
-        }
-
-        // Get Default Tasks
-        function getDefaultTasks() {
-            return getDefaultPhases().flatMap(phase => phase.tasks);
-        }
-
-        // Helper Functions
-        function getPhaseColor(index) {
-            const colors = ['#7c3aed', '#2563eb', '#0d9488', '#f59e0b', '#ef4444'];
-            return colors[index % colors.length];
-        }
-
-        function getPhaseIcon(index) {
-            const icons = ['fas fa-lightbulb', 'fas fa-code', 'fas fa-vial', 'fas fa-rocket', 'fas fa-tools'];
-            return icons[index % icons.length];
-        }
-
-        // Toggle Guidance
-        window.toggleGuidance = function(element) {
-            const card = element.closest('.guidance-card');
-            card.classList.toggle('expanded');
-            
-            const icon = element.querySelector('.fa-chevron-down, .fa-chevron-up');
-            if (icon.classList.contains('fa-chevron-down')) {
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        }
-
-        // Reset Wizard
-        function resetWizard() {
-            currentProject.currentStep = 1;
-            goToStep(1);
-            
-            // Clear form fields
-            document.getElementById('projectName').value = '';
-            document.getElementById('projectType').selectedIndex = 0;
-            document.getElementById('projectDescription').value = '';
-            document.getElementById('launchDeadline').value = '';
-            
-            // Reset tech selection
-            document.querySelectorAll('.tech-option').forEach(opt => {
-                opt.style.borderColor = '#d1d5db';
-                opt.style.boxShadow = 'none';
-                opt.classList.remove('selected');
-            });
-        }
-
-        // Check Domain Availability
-        window.checkDomain = function() {
-            const domainInput = document.getElementById('domainCheck');
-            const domain = domainInput.value.trim();
-            
-            if (!domain) {
-                alert('Please enter a domain name');
-                return;
-            }
-            
-            // Simulate domain check
-            const available = Math.random() > 0.5;
-            
-            if (available) {
-                alert(`🎉 Congratulations! "${domain}.com" is available!`);
-            } else {
-                alert(`😔 Sorry, "${domain}.com" is already taken. Try a different name.`);
-            }
-        }
-
-        // Toggle Chat
-        window.toggleChat = function() {
-            alert('💬 Chat feature coming soon! For now, you can email us at contact@amjathkhan.com');
-        }
-
-        // Setup Navigation
-        function setupNavigation() {
-            // Dropdown functionality
-            const dropdowns = document.querySelectorAll('.dropdown');
-            
-            dropdowns.forEach(dropdown => {
-                const toggle = dropdown.querySelector('.dropdown-toggle');
-                const menu = dropdown.querySelector('.dropdown-menu');
-                
-                if (toggle && menu) {
-                    toggle.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        dropdown.classList.toggle('active');
-                    });
-                    
-                    document.addEventListener('click', function(e) {
-                        if (!dropdown.contains(e.target)) {
-                            dropdown.classList.remove('active');
-                        }
-                    });
-                }
-            });
-            
-            // Mobile menu
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (menuToggle && navLinks) {
-                menuToggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    navLinks.classList.toggle('show');
-                });
-                
-                document.addEventListener('click', function(e) {
-                    if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                        navLinks.classList.remove('show');
-                    }
-                });
-            }
-        }
-
-        // Load Saved Project
-        function loadSavedProject() {
-            const saved = localStorage.getItem('launchpadProject');
-            if (saved) {
-                try {
-                    const project = JSON.parse(saved);
-                    if (project.name) {
-                        // Show continue option
-                        document.getElementById('loadProjectBtn').innerHTML = 
-                            `<i class="fas fa-play-circle"></i> Continue "${project.name}"`;
-                    }
-                } catch (e) {
-                    console.error('Error loading project:', e);
-                }
-            }
-        }
-
-        console.log('LaunchPad Pro Initialized! 🚀');
-    </script>
+    <script src="js/auth.js"></script>
+    <script src="js/resources.js"></script>
 </body>
 </html>
