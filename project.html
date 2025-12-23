@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - WebsiteLaunchPad</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">WebsiteLaunchPad</span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="create-project.html" class="nav-link">Create Project</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <div class="nav-user">
+                    <span id="userName">User</span>
+                    <div class="user-dropdown">
+                        <a href="dashboard.html">My Profile</a>
+                        <a href="#" class="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+        <a href="create-project.html" class="mobile-nav-link">Create Project</a>
+        <a href="resources.html" class="mobile-nav-link">Resources</a>
+        <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+        <a href="#" class="mobile-nav-link logout-btn">Logout</a>
+    </div>
+
+    <!-- Project Header -->
+    <div class="project-header">
+        <div class="container">
+            <div id="projectHeader">
+                <h1>Project Name</h1>
+                <p>Project description will appear here</p>
+                <div class="project-meta">
+                    <span>Created: Loading...</span>
+                    <span>Progress: 0%</span>
+                </div>
+            </div>
+            
+            <div class="project-actions">
+                <a href="project-settings.html" class="btn btn-outline">Settings</a>
+                <a href="project-analytics.html" class="btn btn-outline">Analytics</a>
+                <button class="btn btn-primary" id="exportProgress">Export Progress</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="dashboard-grid">
+            <!-- Project Steps -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Project Steps</h2>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-outline" id="toggleCompleted">Hide Completed</button>
+                    </div>
+                </div>
+                <div id="projectSteps">
+                    <!-- Steps will be loaded dynamically -->
+                    <div class="loading-state">
+                        <div class="loader-spinner"></div>
+                        <p>Loading project steps...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Progress Overview</h2>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="projectProgressChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Time Tracking -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Time Tracking</h2>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-outline" id="startTimer">Start Timer</button>
+                    </div>
+                </div>
+                <div class="time-tracking">
+                    <div class="time-display">
+                        <div class="time-total">
+                            <h3 id="totalTime">0</h3>
+                            <p>Total Hours</p>
+                        </div>
+                        <div class="time-session">
+                            <h3 id="sessionTime">00:00:00</h3>
+                            <p>Current Session</p>
+                        </div>
+                    </div>
+                    <div class="time-controls">
+                        <button class="btn btn-sm btn-outline" id="pauseTimer" disabled>Pause</button>
+                        <button class="btn btn-sm btn-outline" id="stopTimer" disabled>Stop</button>
+                        <button class="btn btn-sm btn-outline" id="logTime">Log Time</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="activity-list" id="projectActivity">
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-content">
+                            <p>Project created</p>
+                            <span class="activity-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 WebsiteLaunchPad. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Project-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Timer functionality
+            let timerInterval;
+            let sessionSeconds = 0;
+            let isTimerRunning = false;
+
+            const startTimerBtn = document.getElementById('startTimer');
+            const pauseTimerBtn = document.getElementById('pauseTimer');
+            const stopTimerBtn = document.getElementById('stopTimer');
+            const logTimeBtn = document.getElementById('logTime');
+            const sessionTimeEl = document.getElementById('sessionTime');
+            const totalTimeEl = document.getElementById('totalTime');
+
+            startTimerBtn.addEventListener('click', startTimer);
+            pauseTimerBtn.addEventListener('click', pauseTimer);
+            stopTimerBtn.addEventListener('click', stopTimer);
+            logTimeBtn.addEventListener('click', logTime);
+
+            function startTimer() {
+                if (!isTimerRunning) {
+                    isTimerRunning = true;
+                    timerInterval = setInterval(() => {
+                        sessionSeconds++;
+                        updateSessionTime();
+                    }, 1000);
+                    
+                    startTimerBtn.disabled = true;
+                    pauseTimerBtn.disabled = false;
+                    stopTimerBtn.disabled = false;
+                }
+            }
+
+            function pauseTimer() {
+                if (isTimerRunning) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    pauseTimerBtn.textContent = 'Resume';
+                } else {
+                    startTimer();
+                    pauseTimerBtn.textContent = 'Pause';
+                }
+            }
+
+            function stopTimer() {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                sessionSeconds = 0;
+                updateSessionTime();
+                
+                startTimerBtn.disabled = false;
+                pauseTimerBtn.disabled = true;
+                stopTimerBtn.disabled = true;
+                pauseTimerBtn.textContent = 'Pause';
+            }
+
+            function updateSessionTime() {
+                const hours = Math.floor(sessionSeconds / 3600);
+                const minutes = Math.floor((sessionSeconds % 3600) / 60);
+                const seconds = sessionSeconds % 60;
+                
+                sessionTimeEl.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            function logTime() {
+                if (sessionSeconds > 0) {
+                    // In a real app, this would save to backend
+                    const hours = (sessionSeconds / 3600).toFixed(2);
+                    alert(`Logged ${hours} hours of work!`);
+                    stopTimer();
+                }
+            }
+
+            // Export progress
+            const exportBtn = document.getElementById('exportProgress');
+            exportBtn.addEventListener('click', () => {
+                if (window.progressTracker) {
+                    const progressData = window.progressTracker.exportProgressData('json');
+                    const blob = new Blob([progressData], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'project-progress.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            });
+
+            // Toggle completed steps
+            const toggleBtn = document.getElementById('toggleCompleted');
+            toggleBtn.addEventListener('click', function() {
+                const steps = document.querySelectorAll('.project-step.completed');
+                const isHidden = steps[0]?.style.display === 'none';
+                
+                steps.forEach(step => {
+                    step.style.display = isHidden ? 'flex' : 'none';
+                });
+                
+                this.textContent = isHidden ? 'Hide Completed' : 'Show Completed';
+            });
+        });
+    </script>
+</body>
+</html>
