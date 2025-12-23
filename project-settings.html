@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Settings - WebsiteLaunchPad</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">WebsiteLaunchPad</span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="create-project.html" class="nav-link">Create Project</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <div class="nav-user">
+                    <span id="userName">User</span>
+                    <div class="user-dropdown">
+                        <a href="dashboard.html">My Profile</a>
+                        <a href="#" class="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+        <a href="create-project.html" class="mobile-nav-link">Create Project</a>
+        <a href="resources.html" class="mobile-nav-link">Resources</a>
+        <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+        <a href="#" class="mobile-nav-link logout-btn">Logout</a>
+    </div>
+
+    <!-- Settings Header -->
+    <div class="settings-header">
+        <div class="container">
+            <h1>Project Settings</h1>
+            <p>Configure your project settings and preferences</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="settings-grid">
+            <!-- Project Settings -->
+            <div class="settings-card">
+                <h2>Project Information</h2>
+                <form id="projectSettingsForm" class="ajax-form">
+                    <div class="form-group">
+                        <label for="projectName">Project Name</label>
+                        <input type="text" id="projectName" name="projectName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectDescription">Description</label>
+                        <textarea id="projectDescription" name="projectDescription" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectCategory">Category</label>
+                        <select id="projectCategory" name="projectCategory">
+                            <option value="business">Business</option>
+                            <option value="portfolio">Portfolio</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="blog">Blog</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectColor">Accent Color</label>
+                        <input type="color" id="projectColor" name="projectColor" value="#3b82f6">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="settings-card danger-zone">
+                <h2>Danger Zone</h2>
+                <p class="warning-text">These actions are irreversible. Please proceed with caution.</p>
+                
+                <div class="danger-actions">
+                    <div class="danger-action">
+                        <h3>Archive Project</h3>
+                        <p>Remove project from active list but keep data</p>
+                        <button class="btn btn-warning" id="archiveProject">Archive</button>
+                    </div>
+                    
+                    <div class="danger-action">
+                        <h3>Delete Project</h3>
+                        <p>Permanently delete project and all associated data</p>
+                        <button class="btn btn-danger" id="deleteProject">Delete Project</button>
+                    </div>
+                    
+                    <div class="danger-action">
+                        <h3>Export Project Data</h3>
+                        <p>Download all project data as JSON file</p>
+                        <button class="btn btn-outline" id="exportProject">Export Data</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Settings -->
+            <div class="settings-card">
+                <h2>Team Collaboration</h2>
+                <p>Invite team members to collaborate on this project</p>
+                
+                <div class="team-invite">
+                    <input type="email" id="teamEmail" placeholder="Enter email address">
+                    <select id="teamRole">
+                        <option value="viewer">Viewer</option>
+                        <option value="editor">Editor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <button class="btn btn-primary" id="inviteTeam">Invite</button>
+                </div>
+                
+                <div class="team-list" id="teamMembers">
+                    <!-- Team members will be loaded here -->
+                    <div class="empty-team">
+                        <p>No team members added yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Settings -->
+            <div class="settings-card">
+                <h2>Integrations</h2>
+                <p>Connect with third-party services</p>
+                
+                <div class="integrations-list">
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <h3>Google Analytics</h3>
+                            <p>Track website traffic and user behavior</p>
+                        </div>
+                        <button class="btn btn-outline">Connect</button>
+                    </div>
+                    
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <h3>Cloudflare</h3>
+                            <p>DNS management and security</p>
+                        </div>
+                        <button class="btn btn-outline">Connect</button>
+                    </div>
+                    
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <h3>GitHub</h3>
+                            <p>Version control and deployment</p>
+                        </div>
+                        <button class="btn btn-outline">Connect</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 WebsiteLaunchPad. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle project deletion
+            const deleteBtn = document.getElementById('deleteProject');
+            deleteBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+                    // Get project ID from URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const projectId = urlParams.get('id');
+                    
+                    if (projectId) {
+                        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+                        const filteredProjects = projects.filter(p => p.id !== projectId);
+                        localStorage.setItem('projects', JSON.stringify(filteredProjects));
+                        
+                        alert('Project deleted successfully!');
+                        window.location.href = 'dashboard.html';
+                    }
+                }
+            });
+
+            // Handle project archiving
+            const archiveBtn = document.getElementById('archiveProject');
+            archiveBtn.addEventListener('click', function() {
+                if (confirm('Archive this project? It will be moved to archived projects.')) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const projectId = urlParams.get('id');
+                    
+                    if (projectId) {
+                        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+                        const projectIndex = projects.findIndex(p => p.id === projectId);
+                        
+                        if (projectIndex !== -1) {
+                            projects[projectIndex].archived = true;
+                            localStorage.setItem('projects', JSON.stringify(projects));
+                            
+                            alert('Project archived successfully!');
+                            window.location.href = 'dashboard.html';
+                        }
+                    }
+                }
+            });
+
+            // Handle team invitation
+            const inviteBtn = document.getElementById('inviteTeam');
+            inviteBtn.addEventListener('click', function() {
+                const email = document.getElementById('teamEmail').value;
+                const role = document.getElementById('teamRole').value;
+                
+                if (email) {
+                    const teamList = document.getElementById('teamMembers');
+                    const emptyTeam = teamList.querySelector('.empty-team');
+                    
+                    if (emptyTeam) {
+                        emptyTeam.remove();
+                    }
+                    
+                    const memberEl = document.createElement('div');
+                    memberEl.className = 'team-member';
+                    memberEl.innerHTML = `
+                        <div class="member-info">
+                            <h4>${email}</h4>
+                            <span class="member-role">${role}</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline remove-member">Remove</button>
+                    `;
+                    
+                    teamList.appendChild(memberEl);
+                    document.getElementById('teamEmail').value = '';
+                    
+                    // Add remove functionality
+                    memberEl.querySelector('.remove-member').addEventListener('click', function() {
+                        memberEl.remove();
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
