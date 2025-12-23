@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - WebsiteLaunchPad</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">WebsiteLaunchPad</span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="create-project.html" class="nav-link">Create Project</a>
+                <a href="templates.html" class="nav-link active">Templates</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <div class="nav-user">
+                    <span id="userName">User</span>
+                    <div class="user-dropdown">
+                        <a href="dashboard.html">My Profile</a>
+                        <a href="#" class="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+        <a href="create-project.html" class="mobile-nav-link">Create Project</a>
+        <a href="templates.html" class="mobile-nav-link">Templates</a>
+        <a href="resources.html" class="mobile-nav-link">Resources</a>
+        <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+        <a href="#" class="mobile-nav-link logout-btn">Logout</a>
+    </div>
+
+    <!-- Template Gallery Header -->
+    <div class="templates-header">
+        <div class="container">
+            <h1>Professional Website Templates</h1>
+            <p>Choose from our collection of professionally designed templates. One click to download and customize.</p>
+            
+            <div class="template-search">
+                <input type="text" id="templateSearch" placeholder="Search templates...">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="business">Business</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="blog">Blog</option>
+                    <option value="ecommerce">E-commerce</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Template Categories -->
+        <div class="template-categories" id="templateCategories">
+            <!-- Categories will be loaded here -->
+        </div>
+
+        <!-- Template Grid -->
+        <div class="templates-grid" id="templatesContainer">
+            <!-- Templates will be loaded here -->
+            <div class="loading-templates">
+                <div class="loader-spinner"></div>
+                <p>Loading templates...</p>
+            </div>
+        </div>
+
+        <!-- How to Use Templates -->
+        <div class="template-guide">
+            <h2>How to Use These Templates</h2>
+            <div class="guide-steps">
+                <div class="guide-step">
+                    <div class="step-number">1</div>
+                    <h3>Download Template</h3>
+                    <p>Click the "Download" button on your chosen template</p>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">2</div>
+                    <h3>Extract Files</h3>
+                    <p>Unzip the downloaded file to access HTML, CSS, and images</p>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">3</div>
+                    <h3>Customize Content</h3>
+                    <p>Edit the HTML files with your text, images, and colors</p>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">4</div>
+                    <h3>Launch Website</h3>
+                    <p>Upload to your hosting and go live with your new website!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 WebsiteLaunchPad. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/templates.js"></script>
+</body>
+</html>
