@@ -19,9 +19,13 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Styles -->
+    <!-- Link to our CSS files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    
+    <!-- Main Styles -->
     <style>
-        /* CSS Variables */
+        /* CSS Variables - Keep your beautiful gradients */
         :root {
             --primary-blue: #2563eb;
             --primary-blue-dark: #1d4ed8;
@@ -53,135 +57,15 @@
             --radius-full: 9999px;
         }
         
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Reset - Use our main.css reset instead */
         
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--neutral-800);
-            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
-            min-height: 100vh;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-        
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-bottom: 1px solid var(--neutral-200);
-            box-shadow: var(--shadow-sm);
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--neutral-900);
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--neutral-700);
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: var(--neutral-700);
-            border: 1px solid var(--neutral-300);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--neutral-50);
-            border-color: var(--neutral-400);
-        }
-        
-        /* Hero Section */
+        /* Hero Section - Keep your beautiful hero */
         .hero {
             padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, white 100%);
         }
         
         .hero::before {
@@ -376,64 +260,14 @@
             transform: translateY(-2px);
         }
         
-        /* Footer */
-        .footer {
-            background: var(--neutral-900);
-            color: white;
-            padding: 4rem 0 2rem;
+        /* Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-description {
-            color: var(--neutral-400);
-            line-height: 1.6;
-        }
-        
-        .footer-links h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-        
-        .footer-links a {
-            color: var(--neutral-400);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--neutral-800);
-            color: var(--neutral-500);
-            font-size: 0.875rem;
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
         
         /* Responsive */
@@ -444,10 +278,6 @@
             
             .section-title {
                 font-size: 2rem;
-            }
-            
-            .nav-links {
-                display: none;
             }
             
             .hero-actions {
@@ -464,16 +294,6 @@
                 font-size: 2rem;
             }
         }
-        
-        /* Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
     </style>
 </head>
 <body>
@@ -489,9 +309,9 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#pricing">Pricing</a>
-                <a href="/login.html" class="btn btn-secondary">Sign In</a>
-                <a href="/register.html" class="btn btn-primary">Get Started Free</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="login.html" class="btn btn-secondary">Sign In</a>
+                <a href="register.html" class="btn btn-primary">Get Started Free</a>
             </div>
         </div>
     </nav>
@@ -505,7 +325,7 @@
                 No coding experience needed. Perfect for beginners, entrepreneurs, and small businesses.
             </p>
             <div class="hero-actions">
-                <a href="/register.html" class="btn btn-primary">
+                <a href="register.html" class="btn btn-primary">
                     <i class="fas fa-rocket"></i> Start Your Journey - It's Free
                 </a>
                 <a href="#how-it-works" class="btn btn-secondary">
@@ -628,7 +448,7 @@
         <div class="cta">
             <h2>Ready to Launch Your Website?</h2>
             <p>Join thousands of successful website creators who started with WebsiteLaunchPad. No credit card required.</p>
-            <a href="/register.html" class="btn">
+            <a href="register.html" class="btn">
                 <i class="fas fa-rocket"></i> Start Free Today
             </a>
         </div>
@@ -653,7 +473,7 @@
                     <ul>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="/blog">Blog</a></li>
                     </ul>
                 </div>
