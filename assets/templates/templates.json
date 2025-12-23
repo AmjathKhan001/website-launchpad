@@ -1,0 +1,62 @@
+{
+  "templates": [
+    {
+      "id": "business",
+      "name": "Business Website",
+      "description": "Professional business template with services section, contact form, and modern design",
+      "category": "business",
+      "price": "free",
+      "preview": "assets/images/screenshots/business-preview.png",
+      "file": "assets/templates/html/business-template.zip",
+      "features": [
+        "Responsive design",
+        "Service showcase",
+        "Contact section",
+        "Modern navigation",
+        "SEO optimized"
+      ],
+      "tags": ["business", "professional", "services", "corporate"]
+    },
+    {
+      "id": "portfolio",
+      "name": "Portfolio Website",
+      "description": "Showcase your work with this beautiful portfolio template",
+      "category": "portfolio",
+      "price": "free",
+      "preview": "assets/images/screenshots/portfolio-preview.png",
+      "file": "assets/templates/html/portfolio-template.zip",
+      "features": [
+        "Project gallery",
+        "About section",
+        "Skills showcase",
+        "Contact form",
+        "Mobile friendly"
+      ],
+      "tags": ["portfolio", "creative", "design", "photography"]
+    },
+    {
+      "id": "blog",
+      "name": "Blog Website",
+      "description": "Start your blog with this clean and readable template",
+      "category": "blog",
+      "price": "free",
+      "preview": "assets/images/screenshots/blog-preview.png",
+      "file": "assets/templates/html/blog-template.zip",
+      "features": [
+        "Blog post layout",
+        "Categories",
+        "Author profile",
+        "Comment section",
+        "Social sharing"
+      ],
+      "tags": ["blog", "writing", "content", "news"]
+    }
+  ],
+  "categories": [
+    { "id": "business", "name": "Business", "count": 1 },
+    { "id": "portfolio", "name": "Portfolio", "count": 1 },
+    { "id": "blog", "name": "Blog", "count": 1 },
+    { "id": "ecommerce", "name": "E-commerce", "count": 0 },
+    { "id": "landing", "name": "Landing Page", "count": 0 }
+  ]
+}
