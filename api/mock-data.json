@@ -1,27 +1,133 @@
 {
-  "templates": [
+  "users": [
     {
-      "id": 1,
-      "name": "Business Pro",
-      "category": "business",
-      "description": "Professional business website template",
-      "preview": "business-pro.jpg"
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "plan": "premium",
+      "createdAt": "2024-01-15T10:30:00Z"
     },
     {
-      "id": 2,
-      "name": "Creative Portfolio",
-      "category": "portfolio",
-      "description": "Modern portfolio for creatives",
-      "preview": "portfolio-creative.jpg"
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "plan": "basic",
+      "createdAt": "2024-02-01T14:20:00Z"
     }
   ],
-  "tutorials": [
+  "projects": [
     {
-      "id": 1,
-      "title": "Getting Started Guide",
+      "id": "proj_001",
+      "userId": "1",
+      "name": "E-Commerce Store",
+      "description": "A modern online store for fashion accessories",
+      "category": "ecommerce",
+      "progress": 75,
+      "stepsCompleted": 4,
+      "createdAt": "2024-01-20T09:00:00Z",
+      "lastUpdated": "2024-02-15T16:45:00Z",
+      "domain": {
+        "completed": true,
+        "domainName": "fashionstore.com",
+        "completedDate": "2024-01-22T11:30:00Z"
+      },
+      "hosting": {
+        "completed": true,
+        "provider": "Premium Hosting",
+        "completedDate": "2024-01-25T14:20:00Z"
+      },
+      "design": {
+        "completed": true,
+        "template": "Modern E-Commerce",
+        "completedDate": "2024-02-05T10:15:00Z"
+      },
+      "content": {
+        "completed": true,
+        "pages": 12,
+        "completedDate": "2024-02-10T13:45:00Z"
+      },
+      "seo": {
+        "completed": false,
+        "keywords": ["fashion", "accessories", "online store"]
+      },
+      "launch": {
+        "completed": false
+      }
+    },
+    {
+      "id": "proj_002",
+      "userId": "1",
+      "name": "Portfolio Website",
+      "description": "Personal portfolio for showcasing design work",
+      "category": "portfolio",
+      "progress": 100,
+      "stepsCompleted": 6,
+      "createdAt": "2024-01-10T08:15:00Z",
+      "lastUpdated": "2024-02-01T12:00:00Z",
+      "domain": {
+        "completed": true,
+        "domainName": "johndoe.design",
+        "completedDate": "2024-01-12T10:30:00Z"
+      },
+      "hosting": {
+        "completed": true,
+        "provider": "Portfolio Host",
+        "completedDate": "2024-01-14T14:45:00Z"
+      },
+      "design": {
+        "completed": true,
+        "template": "Creative Portfolio",
+        "completedDate": "2024-01-18T09:20:00Z"
+      },
+      "content": {
+        "completed": true,
+        "pages": 8,
+        "completedDate": "2024-01-22T11:10:00Z"
+      },
+      "seo": {
+        "completed": true,
+        "keywords": ["design", "portfolio", "creative"],
+        "completedDate": "2024-01-25T15:30:00Z"
+      },
+      "launch": {
+        "completed": true,
+        "launchDate": "2024-02-01T12:00:00Z",
+        "completedDate": "2024-02-01T12:00:00Z"
+      }
+    }
+  ],
+  "resources": [
+    {
+      "id": "res_001",
+      "title": "Getting Started with Web Development",
+      "type": "tutorial",
       "category": "beginner",
-      "duration": "10 min",
-      "video": "getting-started.mp4"
+      "duration": "30 min",
+      "description": "Learn the basics of HTML, CSS, and JavaScript",
+      "url": "#"
+    },
+    {
+      "id": "res_002",
+      "title": "SEO Best Practices 2024",
+      "type": "guide",
+      "category": "seo",
+      "duration": "45 min",
+      "description": "Optimize your website for search engines",
+      "url": "#"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach_001",
+      "name": "First Project",
+      "description": "Created your first website project",
+      "icon": "🚀"
+    },
+    {
+      "id": "ach_002",
+      "name": "Website Launched",
+      "description": "Successfully launched a website",
+      "icon": "🎉"
     }
   ]
 }
