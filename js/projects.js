@@ -1,232 +1,178 @@
-// Global functionality for all pages
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const nav = document.querySelector('nav');
-    
-    if (mobileMenuBtn && nav) {
-        mobileMenuBtn.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? '✕' : '☰';
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!nav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                nav.classList.remove('active');
-                mobileMenuBtn.innerHTML = '☰';
-            }
-        });
+// website-launchpad/js/projects.js
+// Project Management System
+
+class ProjectManager {
+    constructor() {
+        this.auth = window.auth || new AuthSystem();
     }
-    
-    // Theme toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isDarkMode);
-            themeToggle.innerHTML = isDarkMode ? '☀️' : '🌙';
-        });
+
+    // Create a new project
+    createProject(projectData) {
+        const user = this.auth.getCurrentUser();
         
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('darkMode');
-        if (savedTheme === 'true') {
-            document.body.classList.add('dark-mode');
-            themeToggle.innerHTML = '☀️';
+        if (!user) {
+            return { success: false, message: 'You must be logged in to create a project' };
         }
+
+        if (!projectData.name || !projectData.type) {
+            return { success: false, message: 'Project name and type are required' };
+        }
+
+        // Initialize projects array if it doesn't exist
+        if (!user.projects) {
+            user.projects = [];
+        }
+
+        // Create new project
+        const newProject = {
+            id: Date.now(),
+            name: projectData.name,
+            type: projectData.type,
+            description: projectData.description || '',
+            goal: projectData.goal || 'general',
+            technology: projectData.technology || ['html', 'css'],
+            progress: 0,
+            completedTasks: 0,
+            totalTasks: 10,
+            status: 'planning',
+            createdAt: new Date().toISOString(),
+            lastUpdated: new Date().toISOString(),
+            tasks: this.getDefaultTasks(projectData.type)
+        };
+
+        // Add to user's projects
+        user.projects.push(newProject);
+
+        // Update user in localStorage
+        this.updateUser(user);
+
+        return { 
+            success: true, 
+            message: 'Project created successfully!',
+            project: newProject
+        };
     }
-    
-    // Search functionality
-    const searchInput = document.querySelector('.search-box input');
-    const searchBtn = document.querySelector('.search-box button');
-    
-    if (searchInput && searchBtn) {
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') performSearch();
-        });
-        
-        function performSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                // Show loading
-                searchBtn.innerHTML = '<div class="loading"></div>';
-                
-                // Simulate search (in real app, this would be an API call)
-                setTimeout(() => {
-                    searchBtn.innerHTML = 'Search';
-                    
-                    // Store search in localStorage for recent searches
-                    const searches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-                    searches.unshift({
-                        query: query,
-                        timestamp: new Date().toISOString()
-                    });
-                    localStorage.setItem('recentSearches', JSON.stringify(searches.slice(0, 5)));
-                    
-                    // Show message (in real app, redirect to search results)
-                    showToast(`Searching for "${query}"... (This is a demo)`);
-                }, 500);
-            }
-        }
+
+    // Get default tasks based on project type
+    getDefaultTasks(projectType) {
+        const baseTasks = [
+            { id: 1, title: 'Define project goals', completed: false, category: 'planning' },
+            { id: 2, title: 'Choose domain name', completed: false, category: 'planning' },
+            { id: 3, title: 'Design homepage layout', completed: false, category: 'design' },
+            { id: 4, title: 'Create color scheme', completed: false, category: 'design' },
+            { id: 5, title: 'Setup HTML structure', completed: false, category: 'development' },
+            { id: 6, title: 'Add CSS styling', completed: false, category: 'development' },
+            { id: 7, title: 'Make responsive design', completed: false, category: 'development' },
+            { id: 8, title: 'Test on different browsers', completed: false, category: 'testing' },
+            { id: 9, title: 'Optimize for performance', completed: false, category: 'testing' },
+            { id: 10, title: 'Launch website', completed: false, category: 'launch' }
+        ];
+
+        return baseTasks;
     }
-    
-    // Toast notification function
-    window.showToast = function(message, type = 'success') {
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.classList.add('show'), 100);
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    };
-    
-    // Update copyright year
-    const copyright = document.querySelector('.copyright');
-    if (copyright) {
-        const year = new Date().getFullYear();
-        copyright.innerHTML = copyright.innerHTML.replace('2023', year);
+
+    // Get all projects for current user
+    getProjects() {
+        const user = this.auth.getCurrentUser();
+        return user ? user.projects || [] : [];
     }
-    
-    // Tool usage tracking
-    const toolTitle = document.querySelector('.tool-header h1');
-    if (toolTitle) {
-        const toolName = toolTitle.textContent;
-        const toolsUsed = JSON.parse(localStorage.getItem('toolsUsed') || '[]');
+
+    // Get project by ID
+    getProject(projectId) {
+        const user = this.auth.getCurrentUser();
+        if (!user || !user.projects) return null;
         
-        // Add to recently used if not already there
-        if (!toolsUsed.includes(toolName)) {
-            toolsUsed.unshift(toolName);
-            localStorage.setItem('toolsUsed', JSON.stringify(toolsUsed.slice(0, 10)));
-        }
+        return user.projects.find(p => p.id == projectId);
     }
-});
 
-// Function to format numbers with commas
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-// Function to copy text to clipboard
-function copyToClipboard(text, elementId) {
-    navigator.clipboard.writeText(text).then(() => {
-        showToast('Copied to clipboard!');
-        if (elementId) {
-            const element = document.getElementById(elementId);
-            element.style.borderColor = 'var(--success)';
-            setTimeout(() => element.style.borderColor = '', 1000);
+    // Update project
+    updateProject(projectId, updates) {
+        const user = this.auth.getCurrentUser();
+        if (!user || !user.projects) {
+            return { success: false, message: 'User not found' };
         }
-    }).catch(() => {
-        showToast('Failed to copy', 'error');
-    });
-}
 
-// Loan Calculator specific functions
-if (typeof window.calculateLoanPayment === 'undefined') {
-    window.calculateLoanPayment = function() {
-        const principal = parseFloat(document.getElementById('loan-amount')?.value);
-        const annualRate = parseFloat(document.getElementById('interest-rate')?.value);
-        const years = parseFloat(document.getElementById('loan-term')?.value);
-        const paymentDisplay = document.getElementById('monthly-payment');
-        const resultBox = document.getElementById('result-box');
-        
-        if (!paymentDisplay || !resultBox) return;
-
-        if (isNaN(principal) || isNaN(annualRate) || isNaN(years) || 
-            principal <= 0 || annualRate < 0 || years <= 0) {
-            paymentDisplay.textContent = 'Invalid Input';
-            resultBox.style.borderLeftColor = 'var(--danger)';
-            showToast('Please enter valid numbers', 'error');
-            return;
+        const projectIndex = user.projects.findIndex(p => p.id == projectId);
+        if (projectIndex === -1) {
+            return { success: false, message: 'Project not found' };
         }
-        
-        resultBox.style.borderLeftColor = 'var(--success)';
 
-        const monthlyRate = (annualRate / 100) / 12;
-        const numberOfPayments = years * 12;
-        let monthlyPayment;
+        // Update project
+        user.projects[projectIndex] = {
+            ...user.projects[projectIndex],
+            ...updates,
+            lastUpdated: new Date().toISOString()
+        };
 
-        if (monthlyRate === 0) {
-            monthlyPayment = principal / numberOfPayments;
+        // Recalculate progress if tasks were updated
+        if (updates.tasks) {
+            const completedTasks = updates.tasks.filter(t => t.completed).length;
+            user.projects[projectIndex].completedTasks = completedTasks;
+            user.projects[projectIndex].progress = Math.round((completedTasks / updates.tasks.length) * 100);
+        }
+
+        // Update user
+        this.updateUser(user);
+
+        return { 
+            success: true, 
+            message: 'Project updated successfully',
+            project: user.projects[projectIndex]
+        };
+    }
+
+    // Delete project
+    deleteProject(projectId) {
+        const user = this.auth.getCurrentUser();
+        if (!user || !user.projects) {
+            return { success: false, message: 'User not found' };
+        }
+
+        const initialLength = user.projects.length;
+        user.projects = user.projects.filter(p => p.id != projectId);
+
+        if (user.projects.length < initialLength) {
+            this.updateUser(user);
+            return { success: true, message: 'Project deleted successfully' };
         } else {
-            const numerator = monthlyRate * Math.pow((1 + monthlyRate), numberOfPayments);
-            const denominator = Math.pow((1 + monthlyRate), numberOfPayments) - 1;
-            monthlyPayment = principal * (numerator / denominator);
+            return { success: false, message: 'Project not found' };
         }
+    }
 
-        // Calculate total payment and interest
-        const totalPayment = monthlyPayment * numberOfPayments;
-        const totalInterest = totalPayment - principal;
+    // Update user in localStorage
+    updateUser(updatedUser) {
+        const users = this.auth.getUsers();
+        const userIndex = users.findIndex(u => u.id === updatedUser.id);
+        
+        if (userIndex !== -1) {
+            users[userIndex] = updatedUser;
+            localStorage.setItem('websiteLaunchpad_users', JSON.stringify(users));
+            localStorage.setItem('websiteLaunchpad_currentUser', JSON.stringify(updatedUser));
+        }
+    }
 
-        // Update display with more information
-        paymentDisplay.innerHTML = `$${monthlyPayment.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}<br>
-                                   <small>Total: $${totalPayment.toFixed(2)} | Interest: $${totalInterest.toFixed(2)}</small>`;
-    };
+    // Get project statistics
+    getStats() {
+        const projects = this.getProjects();
+        const totalProjects = projects.length;
+        const activeProjects = projects.filter(p => p.progress < 100).length;
+        const completedTasks = projects.reduce((sum, p) => sum + (p.completedTasks || 0), 0);
+        const totalProgress = projects.reduce((sum, p) => sum + (p.progress || 0), 0);
+        const avgProgress = totalProjects > 0 ? Math.round(totalProgress / totalProjects) : 0;
+
+        return {
+            totalProjects,
+            activeProjects,
+            completedTasks,
+            avgProgress
+        };
+    }
 }
 
-// Text Case Converter specific functions
-if (typeof window.convertTextCase === 'undefined') {
-    window.convertTextCase = function() {
-        const inputText = document.getElementById('input-text')?.value;
-        const caseType = document.getElementById('case-type')?.value;
-        const outputTextarea = document.getElementById('output-text');
-        
-        if (!inputText || !caseType || !outputTextarea) return;
+// Initialize project manager
+const projectManager = new ProjectManager();
 
-        function toTitleCase(str) {
-            return str.toLowerCase().split(' ').map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-        }
-        
-        function toSentenceCase(str) {
-            return str.toLowerCase().replace(/(^\s*\w|[.?!]\s*\w)/g, c => c.toUpperCase());
-        }
-        
-        function toToggleCase(str) {
-            return str.split('').map((char, index) => 
-                char.match(/[a-z]/i) ? (index % 2 === 0 ? char.toLowerCase() : char.toUpperCase()) : char
-            ).join('');
-        }
-
-        let outputText;
-        switch(caseType) {
-            case 'uppercase':
-                outputText = inputText.toUpperCase();
-                break;
-            case 'lowercase':
-                outputText = inputText.toLowerCase();
-                break;
-            case 'titlecase':
-                outputText = toTitleCase(inputText);
-                break;
-            case 'sentencecase':
-                outputText = toSentenceCase(inputText);
-                break;
-            case 'togglecase':
-                outputText = toToggleCase(inputText);
-                break;
-            default:
-                outputText = inputText;
-        }
-
-        outputTextarea.value = outputText;
-        
-        // Update character count
-        const charCount = document.getElementById('char-count');
-        const wordCount = document.getElementById('word-count');
-        
-        if (charCount) {
-            charCount.textContent = outputText.length;
-        }
-        if (wordCount) {
-            wordCount.textContent = outputText.trim() === '' ? 0 : outputText.trim().split(/\s+/).length;
-        }
-    };
+// Export for use in other files
+if (typeof window !== 'undefined') {
+    window.projectManager = projectManager;
 }
