@@ -55,11 +55,6 @@ website-launchpad/
 └── README.md # This File
 ## 🚀 Quick Start
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/website-launchpad.git
-Open in browser:
-
 Simply open index.html in any web browser
 
 No server or installation required!
@@ -184,22 +179,11 @@ Push to the branch
 
 Open a Pull Request
 
-📄 License
-MIT License - see LICENSE file for details
-
-👥 Contact
-Website: WebsiteLaunchPad.com
-
-Email: support@websitelaunchpad.com
-
-Twitter: @WebsiteLaunchPad
-
 🙏 Acknowledgments
 Icons from Google Material Icons
-
 Charts from Chart.js
-
 UI inspiration from modern SaaS platforms
+
 ## 📁 Templates Included
 
 ### 🏢 Business Template
@@ -229,3 +213,13 @@ UI inspiration from modern SaaS platforms
 3. Download the ZIP file
 4. Extract and customize
 5. Upload to your hosting
+
+👥 Contact
+Website: WebsiteLaunchPad.com
+
+Email: support@websitelaunchpad.com
+
+Twitter: @WebsiteLaunchPad
+
+📄 License
+MIT License - see LICENSE file for details
