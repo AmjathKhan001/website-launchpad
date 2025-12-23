@@ -200,3 +200,32 @@ Icons from Google Material Icons
 Charts from Chart.js
 
 UI inspiration from modern SaaS platforms
+## 📁 Templates Included
+
+### 🏢 Business Template
+- Professional business layout
+- Services showcase
+- Contact form
+- Responsive design
+- SEO optimized
+
+### 🎨 Portfolio Template
+- Project gallery
+- Skills showcase
+- About section
+- Contact information
+- Mobile-friendly
+
+### ✍️ Blog Template
+- Clean reading layout
+- Categories
+- Author profile
+- Social sharing
+- Comment section
+
+### 📦 How to Use Templates
+1. Browse templates on the Templates page
+2. Preview each template
+3. Download the ZIP file
+4. Extract and customize
+5. Upload to your hosting
